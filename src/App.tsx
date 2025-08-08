@@ -214,10 +214,10 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col">
+    <div className=" flex flex-col">
       <Header />
 
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 py-8 ">
         {/* DevTip en haut */}
         <div className="mb-6 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
           <p className="text-sm text-purple-200 flex items-center gap-2">
