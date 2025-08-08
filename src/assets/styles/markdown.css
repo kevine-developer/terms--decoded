@@ -1,0 +1,146 @@
+/* Styles complémentaires pour le rendu Markdown */
+.markdown-content {
+  line-height: 1.7;
+}
+
+/* Styles pour le dropdown de copie */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0);
+}
+
+.group .group-hover\:opacity-100 {
+  transform: translateY(-5px);
+  transition: all 0.2s ease;
+}
+
+/* Animation pour les liens */
+.markdown-content a {
+  transition: all 0.2s ease;
+}
+
+.markdown-content a:hover {
+  transform: translateY(-1px);
+  text-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+}
+
+/* Amélioration des blockquotes */
+.markdown-content blockquote {
+  position: relative;
+}
+
+.markdown-content blockquote:before {
+  content: '"';
+  position: absolute;
+  left: -10px;
+  top: -5px;
+  font-size: 2rem;
+  color: #4f39f6;
+  font-family: Georgia, serif;
+}
+
+/* Animation pour les éléments de code */
+.markdown-content code {
+  transition: background-color 0.2s ease;
+}
+
+.markdown-content code:hover {
+  background-color: #374151;
+}
+
+/* Amélioration des tableaux */
+.markdown-content table {
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.markdown-content table tr:hover td {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+/* Scrollbar pour les blocs de code */
+.markdown-content pre {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 #1f2937;
+}
+
+.markdown-content pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.markdown-content pre::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.markdown-content pre::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 4px;
+}
+
+.markdown-content pre::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Animation d'apparition pour le contenu */
+.markdown-content {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Styles pour les listes avec compteurs */
+.markdown-content ul {
+  counter-reset: list-counter;
+}
+
+.markdown-content .counter-item {
+  counter-increment: list-counter;
+}
+
+/* Amélioration des titres avec animation */
+.markdown-content h1, 
+.markdown-content h2, 
+.markdown-content h3 {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.markdown-content h1:hover, 
+.markdown-content h2:hover, 
+.markdown-content h3:hover {
+  color: #4f39f6;
+}
+
+/* Indicateur de type de contenu */
+.markdown-content h1:before { content: "# "; color: #ef4444; font-weight: normal; }
+.markdown-content h2:before { content: "## "; color: #f59e0b; font-weight: normal; }
+.markdown-content h3:before { content: "### "; color: #10b981; font-weight: normal; }
+
+/* Amélioration responsive */
+@media (max-width: 768px) {
+  .markdown-content {
+    font-size: 14px;
+  }
+  
+  .markdown-content h1 { font-size: 1.5rem; }
+  .markdown-content h2 { font-size: 1.3rem; }
+  .markdown-content h3 { font-size: 1.1rem; }
+  
+  .markdown-content pre {
+    font-size: 12px;
+  }
+  
+  .markdown-content table {
+    font-size: 12px;
+  }
+}
