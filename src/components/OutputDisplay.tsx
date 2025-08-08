@@ -63,7 +63,7 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
   const hasContent = outputText || error;
 
   return (
-    <div className="relative h-full w-full flex flex-col">
+    <div className="relative  w-full flex flex-col">
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
         <h3 className="text-lg font-medium text-gray-300">
           Traduction en clair
@@ -95,7 +95,7 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
           </div>
         )}
         {!error && outputText && (
-          <p style={{ whiteSpace: "pre-wrap" }}>{outputText}</p>
+          <p style={{ whiteSpace: "pre-wrap " }}>{outputText}</p>
         )}
         {!hasContent && (
           <div className="h-full flex flex-col items-center justify-center text-center text-gray-500">
