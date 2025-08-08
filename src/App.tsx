@@ -284,6 +284,20 @@ function App() {
                 Réessayer ({3 - state.retryCount} tentatives restantes)
               </button>
             )}
+                 {state.hasOutput && (
+                <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                  <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+                    <span>
+                      📝 {state.inputText.length} caractères d'origine
+                    </span>
+                    <span>
+                      ✨ {state.outputText.length} caractères lisibles
+                    </span>
+                    <span>🎯 Ton: {state.selectedTone}</span>
+                    <span>⚡ Traité en ~{(Math.random() * 3 + 1) | 0}s</span>
+                  </div>
+                </div>
+              )}
           </div>
 
           <div className="lg:w-1/2 flex flex-col text-white" ref={outputRef}>
@@ -309,18 +323,6 @@ function App() {
             </div>
           </div>
         </div>
-
-        {/* Stats DevEnGalère en bas */}
-        {state.hasOutput && (
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
-            <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-              <span>📝 {state.inputText.length} caractères d'origine</span>
-              <span>✨ {state.outputText.length} caractères lisibles</span>
-              <span>🎯 Ton: {state.selectedTone}</span>
-              <span>⚡ Traité en ~{(Math.random() * 3 + 1) | 0}s</span>
-            </div>
-          </div>
-        )}
       </main>
 
       <Footer />
