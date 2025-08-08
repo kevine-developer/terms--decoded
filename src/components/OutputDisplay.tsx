@@ -45,7 +45,6 @@ const CheckIcon = ({ className }: CopyIconProps) => (
   </svg>
 );
 
-
 const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
   const [copied, setCopied] = useState<"markdown" | "plain" | null>(null);
 
@@ -82,10 +81,6 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
         </h3>
         {outputText && !error && (
           <div className="flex gap-2 items-center">
-            <div className="text-xs text-gray-500 px-2 py-1 bg-gray-800 rounded">
-              Markdown ✨
-            </div>
-
             {/* Dropdown pour les options de copie */}
             <div className="relative group">
               <button className="flex items-center gap-2 text-sm py-1 px-3 rounded-md bg-gray-600 hover:bg-gray-500 text-gray-200 cursor-pointer transition-colors duration-200">
@@ -134,7 +129,7 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
                     onClick={handleCopyPlain}
                     className="w-full  px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white transition-colors duration-150 flex items-center gap-2 rounded-b-lg"
                   >
-                    Text brut     
+                    Text brut
                   </button>
                 </div>
               )}
