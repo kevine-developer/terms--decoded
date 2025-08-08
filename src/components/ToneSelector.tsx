@@ -52,7 +52,8 @@ function ToneSelector({
               onClick={() => handleToneChange(tone)}
               onKeyDown={(e) => handleKeyDown(e, tone)}
               className={`
-                w-full cursor-pointer flex items-center justify-center 
+                w-full text-xs md:text-sm lg:text-base
+                 cursor-pointer flex items-center justify-center 
                 text-center py-3 px-4 rounded-lg font-medium 
                 transition-all duration-200 
                 focus:outline-none focus:ring-2 focus:ring-offset-2 

@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import "./App.css";
+
 import TextInput from "./components/TextInput";
 import ToneSelector from "./components/ToneSelector";
 import { EXAMPLE_TEXT } from "./constants/constants";
