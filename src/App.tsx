@@ -217,9 +217,9 @@ function App() {
     <div className=" flex flex-col">
       <Header />
 
-      <main className="flex-grow container mx-auto px-4 py-8 ">
+      <main className="flex-grow container mx-auto px-4 py-6 ">
         {/* DevTip en haut */}
-        <div className="mb-6 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
+        <div className="mb-2 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
           <p className="text-sm text-purple-200 flex items-center gap-2">
             💡 <strong>DevTip:</strong> Utilise{" "}
             <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">
@@ -284,6 +284,15 @@ function App() {
                 Réessayer ({3 - state.retryCount} tentatives restantes)
               </button>
             )}
+            {state.hasOutput && (
+              <div className=" p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+                  <span>📝 {state.inputText.length} caractères d'origine</span>
+                  <span>✨ {state.outputText.length} caractères de reponse</span>
+                  <span>⚡ Traité en ~{(Math.random() * 3 + 1) | 0}s</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="lg:w-1/2 flex flex-col text-white" ref={outputRef}>
@@ -309,18 +318,6 @@ function App() {
             </div>
           </div>
         </div>
-
-        {/* Stats DevEnGalère en bas */}
-        {state.hasOutput && (
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
-            <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-              <span>📝 {state.inputText.length} caractères d'origine</span>
-              <span>✨ {state.outputText.length} caractères lisibles</span>
-              <span>🎯 Ton: {state.selectedTone}</span>
-              <span>⚡ Traité en ~{(Math.random() * 3 + 1) | 0}s</span>
-            </div>
-          </div>
-        )}
       </main>
 
       <Footer />
