@@ -4,7 +4,7 @@ function Footer() {
       <p className="text-gray-500 text-sm">
         Fait avec sarcasme et beaucoup de café par{" "}
         <a
-          href="https://www.youtube.com/@DevEnGalere"
+          href="https://kevine-dev.link/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-indigo-400 hover:underline"
