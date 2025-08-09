@@ -11,37 +11,14 @@ import OutputDisplay from "./components/OutputDisplay";
 import { reformulateTextWithRetry } from "../services/geminiService";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { ERROR_MESSAGES } from "./constants/errorMessage";
+import { LOADING_MESSAGES } from "./constants/loadingMessage";
+import type { AppState } from "./types/appstate.interface";
 
-// Messages d'erreur inspirés DevEnGalère
-const ERROR_MESSAGES = {
-  emptyInput: "Euh... Tu as oublié de coller ton texte ! 📋 (Classic move)",
-  networkError: "Internet a décidé de faire une pause café ☕ Réessaie !",
-  quotaError:
-    "L'API dit 'trop de requêtes' 😅 Comme quand tu spam F5 sur ton localhost",
-  genericError: "Quelque chose a cassé... Probablement pas ta faute ! 🐛",
-  retryError:
-    "Même après 3 tentatives ? C'est du niveau 'ça marche chez moi™' 🤷‍♂️",
-};
 
-// Loading messages qui évoluent
-const LOADING_MESSAGES = [
-  "Nos avocats-robots compilent...",
-  "Chargement... (Toujours mieux qu'un build Webpack)",
-  "Décryptage en cours... 🔐",
-  "Les hamsters de l'IA pédalent fort...",
-  "Traduction human-readable en cours...",
-];
 
-interface AppState {
-  inputText: string;
-  selectedTone: Tone;
-  isLoading: boolean;
-  error: string | null;
-  outputText: string;
-  loadingMessage: string;
-  hasOutput: boolean;
-  retryCount: number;
-}
+
+
 
 function App() {
   // State consolidé pour une meilleure gestion
@@ -218,21 +195,22 @@ function App() {
       <Header />
 
       <main className="flex-grow container mx-auto px-4 py-6 ">
-      {/* CTA en haut */}
-<div className="mb-2 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
-  <p className="text-sm text-purple-200 flex items-center gap-2">
-    👋 <strong>Hey&nbsp;!</strong> Envie d’en savoir plus sur moi et mes projets&nbsp;?
-    <a
-      href="https://linkedin.com/in/kevinedeven" // Ton lien LinkedIn ou autre
-      target="_blank"
-      rel="noopener noreferrer"
-      className="ml-2 px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-medium transition-colors"
-    >
-      Découvrir mon profil
-    </a>
-  </p>
-</div>
-
+        {/* CTA en haut */}
+        <div className="mb-2 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
+          <p className="text-sm text-purple-200 flex items-center gap-2">
+            👋 <strong>Hey&nbsp;!</strong> Envie d’en savoir plus sur moi et mes
+            projets&nbsp;?
+            <a
+              href="https://kevine-dev.link/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="..."
+              aria-label="Découvrir mon profil, s'ouvre dans un nouvel onglet"
+            >
+              Découvrir mon profil
+            </a>
+          </p>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-8 t">
           {/* Colonne gauche - Input */}
@@ -268,6 +246,7 @@ function App() {
                   <ActionButton
                     onClick={handleClearAll}
                     disabled={state.isLoading}
+                    aria-label="Effacer tout le texte"
                   >
                     <span>🗑️</span>
                   </ActionButton>
@@ -288,7 +267,9 @@ function App() {
               <div className=" p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
                 <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                   <span>📝 {state.inputText.length} caractères d'origine</span>
-                  <span>✨ {state.outputText.length} caractères de reponse</span>
+                  <span>
+                    ✨ {state.outputText.length} caractères de reponse
+                  </span>
                   <span>⚡ Traité en ~{(Math.random() * 3 + 1) | 0}s</span>
                 </div>
               </div>
