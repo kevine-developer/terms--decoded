@@ -57,11 +57,11 @@ function ToneSelector({
                 text-center py-3 px-4 rounded-lg font-medium 
                 transition-all duration-200 
                 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                focus:ring-offset-gray-900 focus:ring-indigo-500
+                focus:ring-offset-gray-900 focus:ring-purple-500
                 disabled:opacity-50 disabled:cursor-not-allowed
                 ${
                   isSelected
-                    ? "bg-indigo-600 text-white shadow-lg"
+                    ? "bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
                     : "bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:hover:bg-gray-700"
                 }
               `
