@@ -218,21 +218,21 @@ function App() {
       <Header />
 
       <main className="flex-grow container mx-auto px-4 py-6 ">
-        {/* DevTip en haut */}
-        <div className="mb-2 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
-          <p className="text-sm text-purple-200 flex items-center gap-2">
-            💡 <strong>DevTip:</strong> Utilise{" "}
-            <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">
-              Ctrl+Enter
-            </kbd>{" "}
-            pour reformuler rapidement !
-            {state.retryCount > 0 && (
-              <span className="ml-2 text-yellow-300">
-                🔄 Tentative #{state.retryCount + 1}
-              </span>
-            )}
-          </p>
-        </div>
+      {/* CTA en haut */}
+<div className="mb-2 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
+  <p className="text-sm text-purple-200 flex items-center gap-2">
+    👋 <strong>Hey&nbsp;!</strong> Envie d’en savoir plus sur moi et mes projets&nbsp;?
+    <a
+      href="https://linkedin.com/in/kevinedeven" // Ton lien LinkedIn ou autre
+      target="_blank"
+      rel="noopener noreferrer"
+      className="ml-2 px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-medium transition-colors"
+    >
+      Découvrir mon profil
+    </a>
+  </p>
+</div>
+
 
         <div className="flex flex-col lg:flex-row gap-8 t">
           {/* Colonne gauche - Input */}
