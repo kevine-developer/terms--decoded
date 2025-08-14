@@ -176,7 +176,7 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
               Prêt à transformer du charabia en quelque chose d'utile (ou de
               drôle) ?
             </p>
-            <p className="text-xs text-purple-400 mt-2">
+            <p className="text-xs text-emerald-400 mt-2">
               ✨ Support Markdown inclus !
             </p>
           </div>

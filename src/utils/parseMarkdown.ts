@@ -40,7 +40,7 @@ export const parseMarkdown = (text: string): string => {
   // Code inline
   html = html.replace(
     /`([^`]+)`/gim,
-    '<code class="bg-gray-700 text-purple-300 px-2 py-1 rounded text-sm font-mono">$1</code>'
+    '<code class="bg-gray-700 text-emerald-300 px-2 py-1 rounded text-sm font-mono">$1</code>'
   );
 
   // Code blocks
@@ -55,7 +55,7 @@ export const parseMarkdown = (text: string): string => {
   // Lists non-ordonnées
   html = html.replace(
     /^\s*[*+-]\s+(.+)$/gim,
-    '<li class="ml-6 mb-2 text-gray-300 relative"><span class="absolute -ml-6 text-purple-400">•</span>$1</li>'
+    '<li class="ml-6 mb-2 text-gray-300 relative"><span class="absolute -ml-6 text-emerald-400">•</span>$1</li>'
   );
 
   // Lists ordonnées
@@ -79,7 +79,7 @@ export const parseMarkdown = (text: string): string => {
   // Blockquotes
   html = html.replace(
     /^>\s*(.+)$/gim,
-    '<blockquote class="border-l-4 border-purple-500 pl-4 my-4 italic text-gray-400 bg-gray-800/30 py-2 rounded-r">$1</blockquote>'
+    '<blockquote class="border-l-4 border-emerald-500 pl-4 my-4 italic text-gray-400 bg-gray-800/30 py-2 rounded-r">$1</blockquote>'
   );
 
   // Horizontal rules

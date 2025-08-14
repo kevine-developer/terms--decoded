@@ -14,10 +14,10 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-emerald-900 to-violet-900 flex items-center justify-center relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
       </div>
@@ -41,7 +41,7 @@ export default function NotFound() {
         {/* Glitchy 404 */}
         <div className="relative mb-8">
           <h1
-            className={`text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 mb-4 transition-all duration-200 ${
+            className={`text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-pink-400 mb-4 transition-all duration-200 ${
               glitchActive ? "animate-pulse filter blur-sm" : ""
             }`}
             style={{
@@ -57,7 +57,7 @@ export default function NotFound() {
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-purple-400 rounded-full animate-ping opacity-60"
+              className="absolute w-2 h-2 bg-emerald-400 rounded-full animate-ping opacity-60"
               style={{
                 top: `${20 + Math.random() * 60}%`,
                 left: `${10 + Math.random() * 80}%`,
@@ -77,7 +77,7 @@ export default function NotFound() {
             Comme quand tu oublies un point-virgule et que ton code plante...
             Cette page a disparu dans les méandres du serveur !
             <br />
-            <span className="text-purple-300 font-medium">
+            <span className="text-emerald-300 font-medium">
               Nos avocats-robots débuggent la situation
             </span>
           </p>
@@ -86,12 +86,12 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
             to="/"
-            className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            className="group relative px-8 py-4 bg-gradient-to-r from-emerald-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-900"
           >
             <span className="relative z-10 flex items-center gap-2">
               git checkout main
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
           </Link>
 
           <button
@@ -110,7 +110,7 @@ export default function NotFound() {
             💡 <strong>DevEnGalère du jour :</strong> Quand tu cherches une page
             qui existe pas, c'est comme debugger un code qui marche chez moi™
             mais pas en prod...
-            <span className="text-purple-300">C'est un classic ! 😂</span>
+            <span className="text-emerald-300">C'est un classic ! 😂</span>
           </p>
         </div>
       </div>

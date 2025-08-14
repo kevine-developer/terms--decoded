@@ -16,11 +16,6 @@ import { LOADING_MESSAGES } from "./constants/loadingMessage";
 import type { AppState } from "./types/appstate.interface";
 import Cta from "./components/Cta";
 
-
-
-
-
-
 function App() {
   // State consolidé pour une meilleure gestion
   const [state, setState] = useState<AppState>({
@@ -197,7 +192,7 @@ function App() {
 
       <main className="flex-grow container mx-auto px-4 py-6 ">
         {/* CTA en haut */}
-      <Cta link="https://kevine-dev.link/"  title="Découvrir mon profil"/>
+        <Cta link="https://kevine-dev.link/" title="Découvrir mon profil" />
 
         <div className="flex flex-col lg:flex-row gap-8 t">
           {/* Colonne gauche - Input */}
@@ -245,7 +240,7 @@ function App() {
             {state.error && state.retryCount < 3 && (
               <button
                 onClick={() => handleReformulateInternal(state.retryCount)}
-                className="text-sm text-purple-400 hover:text-purple-300 transition-colors"
+                className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
               >
                 Réessayer ({3 - state.retryCount} tentatives restantes)
               </button>
