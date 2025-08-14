@@ -27,7 +27,7 @@ export const TONE_PROMPTS = {
 
 **FORMAT** : 
 📋 **Type de document** : [identification claire du type]
-[Puis explication en paragraphes courts avec les points clés mis en évidence (gras ou émojis 🔹)]`,
+[Puis explication en paragraphes courts avec les points clés mis en évidence (gras ou émojis 🔹 )]`,
 
   [Tone.Sarcastic]: `**MISSION** : Tu es un commentateur satirique et critique, spécialiste du décryptage des pratiques douteuses des entreprises tech et de leurs conditions d'utilisation abusives.
 
@@ -108,10 +108,10 @@ export const TONE_PROMPTS = {
 
 **FORMAT** : 
 📊 **Type de document** : [identification précise avec contexte]
-🔍 **Analyse des risques** :
-🔴 RISQUE ÉLEVÉ : [description]
-🟡 RISQUE MOYEN : [description]
-✅ **Points positifs** :
+
+**🔴 RISQUE ÉLEVÉ** : [description]
+**🟡 RISQUE MOYEN** : [description]
+**✅ Points positifs** :
 • [Exemple : "Tu as le droit de savoir quelles infos ils ont sur toi, de demander à les modifier ou à les supprimer"]
 • [Autres protections ou droits accordés]
 Chaque point en une phrase claire et actionnable.`,
