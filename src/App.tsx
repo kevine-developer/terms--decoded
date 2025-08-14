@@ -14,6 +14,7 @@ import Header from "./components/Header";
 import { ERROR_MESSAGES } from "./constants/errorMessage";
 import { LOADING_MESSAGES } from "./constants/loadingMessage";
 import type { AppState } from "./types/appstate.interface";
+import Cta from "./components/Cta";
 
 
 
@@ -196,21 +197,7 @@ function App() {
 
       <main className="flex-grow container mx-auto px-4 py-6 ">
         {/* CTA en haut */}
-        <div className="mb-2 p-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 rounded-lg backdrop-blur-sm">
-          <p className="text-sm text-purple-200 flex items-center gap-2">
-            👋 <strong>Hey&nbsp;!</strong> Envie d’en savoir plus sur moi et mes
-            projets&nbsp;?
-            <a
-              href="https://kevine-dev.link/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="..."
-              aria-label="Découvrir mon profil, s'ouvre dans un nouvel onglet"
-            >
-              Découvrir mon profil
-            </a>
-          </p>
-        </div>
+      <Cta link="https://kevine-dev.link/"  title="Découvrir mon profil"/>
 
         <div className="flex flex-col lg:flex-row gap-8 t">
           {/* Colonne gauche - Input */}

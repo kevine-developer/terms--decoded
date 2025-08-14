@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'react-pwa-boilerplate-v1';
+const CACHE_NAME = 'terms-decoder-cache-v1';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
