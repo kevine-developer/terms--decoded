@@ -14,7 +14,7 @@ import Header from "./components/Header";
 import { ERROR_MESSAGES } from "./constants/errorMessage";
 import { LOADING_MESSAGES } from "./constants/loadingMessage";
 import type { AppState } from "./types/appstate.interface";
-import Cta from "./components/cta";
+import Cta from "./components/Cta";
 
 
 
