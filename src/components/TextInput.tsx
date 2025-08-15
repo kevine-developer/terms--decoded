@@ -9,7 +9,7 @@ function TextInput({ value, onChange }: TextInputProps) {
         htmlFor="legal-text"
         className="block text-lg font-medium text-gray-300 mb-2"
       >
-        Le jargon juridique à décoder
+        Coller le lien ou le texte du jargon juridique à décoder
       </label>
       <textarea
         id="legal-text"
