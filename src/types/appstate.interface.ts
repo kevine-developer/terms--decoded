@@ -7,6 +7,5 @@ export interface AppState {
   error: string | null;
   outputText: string;
   loadingMessage: string;
-  hasOutput: boolean;
   retryCount: number;
 }

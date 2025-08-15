@@ -25,7 +25,6 @@ function App() {
     error: null,
     outputText: "",
     loadingMessage: LOADING_MESSAGES[0],
-    hasOutput: false,
     retryCount: 0,
   });
 
@@ -224,7 +223,7 @@ function App() {
                 )}
               </ActionButton>
               <div>
-                {(state.inputText !== EXAMPLE_TEXT || state.hasOutput) && (
+                {state.inputText !== EXAMPLE_TEXT && (
                   <ActionButton
                     onClick={handleClearAll}
                     disabled={state.isLoading}
@@ -244,17 +243,6 @@ function App() {
               >
                 Réessayer ({3 - state.retryCount} tentatives restantes)
               </button>
-            )}
-            {state.hasOutput && (
-              <div className=" p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
-                <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-                  <span>📝 {state.inputText.length} caractères d'origine</span>
-                  <span>
-                    ✨ {state.outputText.length} caractères de reponse
-                  </span>
-                  <span>⚡ Traité en ~{(Math.random() * 3 + 1) | 0}s</span>
-                </div>
-              </div>
             )}
           </div>
 
