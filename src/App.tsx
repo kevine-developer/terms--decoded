@@ -3,8 +3,7 @@ import { useCallback, useState, useEffect, useRef } from "react";
 
 import TextInput from "./components/TextInput";
 import ToneSelector from "./components/ToneSelector";
-import { EXAMPLE_TEXT } from "./constants/constants";
-import { Tone } from "./types/types";
+
 import ActionButton from "./components/ActionButton";
 import Loader from "./components/Loader";
 import OutputDisplay from "./components/OutputDisplay";
@@ -15,12 +14,14 @@ import { ERROR_MESSAGES } from "./constants/errorMessage";
 import { LOADING_MESSAGES } from "./constants/loadingMessage";
 import type { AppState } from "./types/appstate.interface";
 import Cta from "./components/Cta";
+import { ToneValues } from "./constants/ToneValues";
+import type { ToneInterface } from "./types/types";
 
 function App() {
   // State consolidé pour une meilleure gestion
   const [state, setState] = useState<AppState>({
-    inputText: EXAMPLE_TEXT,
-    selectedTone: Tone.Sarcastic,
+    inputText: "",
+    selectedTone: ToneValues[1], // Premier élément du tableau au lieu du tableau entier
     isLoading: false,
     error: null,
     outputText: "",
@@ -62,41 +63,6 @@ function App() {
     }
   }, [state.outputText]);
 
-  // Gestion d'erreur intelligente avec retry automatique
-  const handleError = useCallback((error: unknown, attempt: number = 0) => {
-    let errorMessage = ERROR_MESSAGES.genericError;
-    let shouldRetry = false;
-
-    if (error instanceof Error) {
-      const msg = error.message.toLowerCase();
-
-      if (msg.includes("quota") || msg.includes("rate")) {
-        errorMessage = ERROR_MESSAGES.quotaError;
-      } else if (msg.includes("network") || msg.includes("fetch")) {
-        errorMessage = ERROR_MESSAGES.networkError;
-        shouldRetry = attempt < 2; // Auto-retry pour erreurs réseau
-      } else if (msg.includes("vide") || msg.includes("empty")) {
-        errorMessage = ERROR_MESSAGES.emptyInput;
-      } else if (attempt >= 3) {
-        errorMessage = ERROR_MESSAGES.retryError;
-      }
-    }
-
-    setState((prev) => ({
-      ...prev,
-      error: errorMessage,
-      isLoading: false,
-      retryCount: attempt,
-    }));
-
-    // Auto-retry silencieux pour les erreurs réseau
-    if (shouldRetry) {
-      setTimeout(() => {
-        handleReformulateInternal(attempt + 1);
-      }, 1500 + attempt * 1000); // Délai croissant
-    }
-  }, []);
-
   // Fonction interne de reformulation avec retry
   const handleReformulateInternal = useCallback(
     async (retryAttempt: number = 0) => {
@@ -136,8 +102,43 @@ function App() {
         handleError(error, retryAttempt);
       }
     },
-    [state.inputText, state.selectedTone, handleError]
+    [state.inputText, state.selectedTone] // Suppression de handleError des dépendances
   );
+
+  // Gestion d'erreur intelligente avec retry automatique
+  const handleError = useCallback((error: unknown, attempt: number = 0) => {
+    let errorMessage = ERROR_MESSAGES.genericError;
+    let shouldRetry = false;
+
+    if (error instanceof Error) {
+      const msg = error.message.toLowerCase();
+
+      if (msg.includes("quota") || msg.includes("rate")) {
+        errorMessage = ERROR_MESSAGES.quotaError;
+      } else if (msg.includes("network") || msg.includes("fetch")) {
+        errorMessage = ERROR_MESSAGES.networkError;
+        shouldRetry = attempt < 2; // Auto-retry pour erreurs réseau
+      } else if (msg.includes("vide") || msg.includes("empty")) {
+        errorMessage = ERROR_MESSAGES.emptyInput;
+      } else if (attempt >= 3) {
+        errorMessage = ERROR_MESSAGES.retryError;
+      }
+    }
+
+    setState((prev) => ({
+      ...prev,
+      error: errorMessage,
+      isLoading: false,
+      retryCount: attempt,
+    }));
+
+    // Auto-retry silencieux pour les erreurs réseau
+    if (shouldRetry) {
+      setTimeout(() => {
+        handleReformulateInternal(attempt + 1);
+      }, 1500 + attempt * 1000); // Délai croissant
+    }
+  }, [handleReformulateInternal]);
 
   // Fonction publique de reformulation
   const handleReformulate = useCallback(() => {
@@ -170,7 +171,7 @@ function App() {
     setState((prev) => ({ ...prev, inputText: value, error: null }));
   }, []);
 
-  const updateSelectedTone = useCallback((tone: Tone) => {
+  const updateSelectedTone = useCallback((tone: ToneInterface) => {
     setState((prev) => ({ ...prev, selectedTone: tone }));
   }, []);
 
@@ -186,14 +187,14 @@ function App() {
   }, []);
 
   return (
-    <div className=" flex flex-col">
+    <div className="flex flex-col">
       <Header />
 
-      <main className="flex-grow container mx-auto px-4 py-6 ">
+      <main className="flex-grow container mx-auto px-4 py-6">
         {/* CTA en haut */}
         <Cta link="https://kevine-dev.link/" title="Découvrir mon profil" />
 
-        <div className="flex flex-col lg:flex-row gap-8 t">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Colonne gauche - Input */}
           <div className="lg:w-1/2 flex flex-col gap-6">
             <TextInput
@@ -223,7 +224,7 @@ function App() {
                 )}
               </ActionButton>
               <div>
-                {state.inputText !== EXAMPLE_TEXT && (
+                {state.inputText  && (
                   <ActionButton
                     onClick={handleClearAll}
                     disabled={state.isLoading}

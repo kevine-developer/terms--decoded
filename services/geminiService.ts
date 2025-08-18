@@ -1,20 +1,22 @@
 
 import { GoogleGenAI } from "@google/genai";
-import type { Tone } from "../src/types/types";
-import { TONE_PROMPTS } from "../src/constants/constants";
+import type { ToneInterface } from "../src/types/types";
+import { getTonePrompt, type ToneType } from "../src/constants/constants";
 
 
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
 
-export const reformulateTextWithRetry = async (text: string, tone: Tone): Promise<string> => {
+export const reformulateTextWithRetry = async ( text: string, 
+  tone: ToneInterface): Promise<string> => {
   if (!process.env.API_KEY) {
     console.error("API key for Gemini is not configured.");
     throw new Error("La clé API n'est pas configurée. L'application ne peut pas fonctionner.");
   }
 
   const model = 'gemini-2.5-flash';
-  const systemInstruction = TONE_PROMPTS[tone];
+    const toneType = tone.toneText as ToneType;
+  const systemInstruction = getTonePrompt(toneType);
   const userPrompt = `Voici le texte à reformuler:\n\n\`\`\`\n${text}\n\`\`\``;
 
   try {
