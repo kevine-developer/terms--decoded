@@ -1,8 +1,8 @@
-import type { Tone } from "./types";
+import type { ToneInterface } from "./types";
 
 export interface AppState {
   inputText: string;
-  selectedTone: Tone;
+  selectedTone: ToneInterface;
   isLoading: boolean;
   error: string | null;
   outputText: string;
