@@ -33,7 +33,7 @@ export const readPDFFile = async (file: File): Promise<FileReadResult> => {
 
     return { success: true, text: fullText.trim() };
   } catch (error: unknown) {
-    console.error('Erreur lors de la lecture du PDF:', error);
+
     const msg =
             /worker|Cannot load script|fake worker/i.test(String((error as Error)?.message || error))
         ? "Le worker PDF.js n'a pas pu être chargé. Vérifie la configuration du worker (voir plus bas)."
