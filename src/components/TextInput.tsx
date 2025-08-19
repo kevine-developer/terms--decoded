@@ -49,7 +49,7 @@ function TextInput({ value, onChange, disabled = false }: TextInputProps) {
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             `}
           >
-            Saisir le texte
+            Saisir le texte ou le lien
           </button>
           <button
             type="button"
