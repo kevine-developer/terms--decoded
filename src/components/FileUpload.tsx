@@ -127,7 +127,6 @@ function FileUpload({
           disabled={disabled || isProcessing}
           className="hidden"
         />
-
         <div className="space-y-2">
           {isProcessing ? (
             <>
