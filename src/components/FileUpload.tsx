@@ -106,7 +106,7 @@ function FileUpload({
           relative border-2 border-dashed rounded-lg p-4 text-center cursor-pointer
           transition-all duration-200 min-h-[300px] ease-in-out flex flex-col justify-center
           ${dragActive 
-            ? 'border-indigo-400 bg-indigo-50/5 scale-[1.02]' 
+            ? 'border-emerald-400 bg-emerald-50/5 scale-[1.02]' 
             : 'border-gray-600 hover:border-gray-500'
           }
           ${disabled || isProcessing 
@@ -127,11 +127,10 @@ function FileUpload({
           disabled={disabled || isProcessing}
           className="hidden"
         />
-
         <div className="space-y-2">
           {isProcessing ? (
             <>
-              <div className="mx-auto w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="mx-auto w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
               <p className="text-sm text-gray-300">
                 Extraction du contenu en cours...
               </p>
@@ -143,7 +142,7 @@ function FileUpload({
               </div>
               <div>
                 <p className="text-sm text-gray-300">
-                  <span className="font-medium text-indigo-400">Cliquez pour choisir</span>
+                  <span className="font-medium text-emerald-400">Cliquez pour choisir</span>
                   {' '}ou glissez-déposez un fichier
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
@@ -156,8 +155,8 @@ function FileUpload({
 
         {/* Indicateur de drag actif */}
         {dragActive && !disabled && !isProcessing && (
-          <div className="absolute inset-0 bg-indigo-500/10 border-2 border-indigo-400 rounded-lg flex items-center justify-center">
-            <p className="text-indigo-400 font-medium">
+          <div className="absolute inset-0 bg-emerald-500/10 border-2 border-emerald-400 rounded-lg flex items-center justify-center">
+            <p className="text-emerald-400 font-medium">
               Relâchez pour importer le fichier
             </p>
           </div>

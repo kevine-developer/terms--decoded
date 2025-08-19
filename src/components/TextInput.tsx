@@ -43,7 +43,7 @@ function TextInput({ value, onChange, disabled = false }: TextInputProps) {
             className={`
               flex-1 py-2 px-4 text-sm font-medium rounded-md transition-all duration-200
               ${activeTab === 'text'
-                ? 'bg-indigo-600 text-white shadow-sm'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-gray-300 hover:text-white hover:bg-gray-700'
               }
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
@@ -58,7 +58,7 @@ function TextInput({ value, onChange, disabled = false }: TextInputProps) {
             className={`
               flex-1 py-2 px-4 text-sm font-medium rounded-md transition-all duration-200
               ${activeTab === 'file'
-                ? 'bg-indigo-600 text-white shadow-sm'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-gray-300 hover:text-white hover:bg-gray-700'
               }
               ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
@@ -79,8 +79,8 @@ function TextInput({ value, onChange, disabled = false }: TextInputProps) {
             disabled={disabled}
             className={`
               block w-full bg-gray-800 border border-gray-700 rounded-lg p-4 
-              text-gray-200 font-mono text-sm focus:ring-2 focus:ring-indigo-500 
-              focus:border-indigo-500 transition-colors duration-200 resize-y
+              text-gray-200 font-mono text-sm focus:ring-2 focus:ring-emerald-500 
+              focus:border-emerald-500 transition-colors duration-200 resize-y
               ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
             `}
             placeholder="Collez ici les 30 pages que vous avez fait semblant de lire..."
