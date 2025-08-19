@@ -46,7 +46,7 @@ function FileUpload({
         setUploadError(result.error || 'Erreur inconnue lors de la lecture du fichier.');
       }
     } catch (error) {
-      console.error('Erreur lors du traitement du fichier:', error);
+      console.error('Erreur lors de la lecture du fichier:', error);
       setUploadError('Une erreur inattendue s\'est produite lors du traitement du fichier.');
     } finally {
       setIsProcessing(false);
