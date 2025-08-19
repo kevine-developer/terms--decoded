@@ -97,7 +97,7 @@ Nous prévoyons d'améliorer cette application avec les fonctionnalités suivant
 L'ajout de ces fonctionnalités montre que le projet est vivant et en cours d'amélioration. La section "Fonctionnalités à venir" est une excellente façon de susciter l'intérêt et de montrer la direction que prend le projet.
 ## Auteur
 
-Fait avec ❤️, beaucoup de café et une dose de cynisme par **[DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine)**.
+Fait avec ❤️,et une dose de cynisme par **[DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine)**.
 
 ## Licence
 
