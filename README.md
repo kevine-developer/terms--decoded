@@ -16,18 +16,19 @@ C'est un projet de [DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine) 
   - **Simple** : Une explication claire, directe et sans fioritures, comme si un ami vous expliquait les points importants.
   - **Sarcastique** : Une version cynique et humoristique qui souligne les clauses abusives et les formulations absurdes.
   - **Développeur** : Une reformulation truffée d'analogies techniques (API, dette technique, open source, etc.) pour les geeks.
+  - **Essentiel** : Une version simplifiée et détaillée des points essentiels du texte.
+
 - **Interface Épurée et Responsive** : Une expérience utilisateur agréable sur ordinateur comme sur mobile.
 - **Copie Facile** : Un bouton pour copier la traduction et la partager facilement.
 - **Utilisation de l'IA de Google** : Propulsé par le modèle `gemini-2.5-flash` pour des reformulations rapides et pertinentes.
 
 ## Technologies Utilisées
 
-  * **React** : Une bibliothèque JavaScript pour construire l'interface utilisateur.
-  * **Vite** : Un outil de build moderne et rapide pour les projets front-end.
-  * **TypeScript** : Un superset de JavaScript qui ajoute le typage statique.
-  * **Google Gemini API** : L'intelligence artificielle de Google, utilisée pour la reformulation du texte.
-  * **`@google/generative-ai`** : La bibliothèque officielle pour interagir avec l'API Gemini.
-
+- **React** : Une bibliothèque JavaScript pour construire l'interface utilisateur.
+- **Vite** : Un outil de build moderne et rapide pour les projets front-end.
+- **TypeScript** : Un superset de JavaScript qui ajoute le typage statique.
+- **Google Gemini API** : L'intelligence artificielle de Google, utilisée pour la reformulation du texte.
+- **`@google/generative-ai`** : La bibliothèque officielle pour interagir avec l'API Gemini.
 
 ## 🚀 Comment ça marche ?
 
@@ -40,8 +41,8 @@ C'est un projet de [DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine) 
 
 ### Prérequis
 
-  * Node.js (version 18 ou supérieure recommandée)
-  * Un compte et une clé API pour l'API Google Gemini.
+  - Node.js (version 18 ou supérieure recommandée)
+  - Un compte et une clé API pour l'API Google Gemini.
 
 ## ⚙️ Installation et Lancement Local
 
@@ -84,10 +85,10 @@ Cette application est un outil satirique et éducatif. **Les textes générés n
 
 Nous prévoyons d'améliorer cette application avec les fonctionnalités suivantes :
 
-* **Support des fichiers** : La possibilité de télécharger des documents **PDF** et des **images** pour en extraire le texte et le reformuler.
-* **Historique des reformulations** : Sauvegarder vos textes reformulés pour les réutiliser plus tard.
-* **Personnalisation avancée** : Des options pour définir un ton personnalisé au-delà des choix prédéfinis.
-* **Interface utilisateur améliorée** : Une refonte du design pour une meilleure expérience utilisateur.
+- **Support des fichiers** : La possibilité de télécharger des documents **PDF** et des **images** pour en extraire le texte et le reformuler.
+- **Historique des reformulations** : Sauvegarder vos textes reformulés pour les réutiliser plus tard.
+- **Personnalisation avancée** : Des options pour définir un ton personnalisé au-delà des choix prédéfinis.
+- **Interface utilisateur améliorée** : Une refonte du design pour une meilleure expérience utilisateur.
 
 ---
 
@@ -96,7 +97,7 @@ Nous prévoyons d'améliorer cette application avec les fonctionnalités suivant
 L'ajout de ces fonctionnalités montre que le projet est vivant et en cours d'amélioration. La section "Fonctionnalités à venir" est une excellente façon de susciter l'intérêt et de montrer la direction que prend le projet.
 ## Auteur
 
-Fait avec ❤️, beaucoup de café et une dose de cynisme par **[DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine)**.
+Fait avec ❤️,et une dose de cynisme par **[DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine)**.
 
 ## Licence
 
