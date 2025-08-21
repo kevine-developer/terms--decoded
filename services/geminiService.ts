@@ -14,8 +14,8 @@ export const reformulateTextWithRetry = async (
     throw new Error("La clé API n'est pas configurée. L'application ne peut pas fonctionner.");
   }
 
-  const model = 'gemini-1.5-flash'; // Utilisation d'un modèle plus récent
-
+  const model = 'gemini-2.5-flash';
+  
   let systemInstruction: string;
   
   // Gérer les tons personnalisés vs les tons prédéfinis
@@ -37,15 +37,13 @@ IMPORTANT: Réponds UNIQUEMENT en ${language.code === 'fr' ? 'FRANÇAIS' : 'ENGL
   try {
     const response = await ai.models.generateContent({
       model: model,
-      contents: [
-        { role: 'system', parts: [{ text: systemInstruction }] },
-        { role: 'user', parts: [{ text: userPrompt }] }
-      ],
+      contents: userPrompt,
       config: {
+        systemInstruction: systemInstruction,
         temperature: 0.7,
         topP: 0.95,
         topK: 64,
-        // thinkingConfig n'est pas une option standard, elle a été retirée.
+        thinkingConfig: { thinkingBudget: 0 } // For faster responses suitable for interactive UI
       },
     });
     
