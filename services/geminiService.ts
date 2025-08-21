@@ -11,6 +11,8 @@ export const reformulateTextWithRetry = async (
   language: LanguageInterface
 ): Promise<string> => {
   if (!process.env.API_KEY) {
+    throw new Error("La clé API n'est pas configurée. L'application ne peut pas fonctionner.");
+  }
 
   const model = 'gemini-2.5-flash';
   
