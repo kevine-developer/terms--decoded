@@ -11,7 +11,7 @@ export const generateToneDescription = async (toneTitle: string): Promise<string
   }
   
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
-  const model = "gemini-1.5-flash"; // Ou 'gemini-1.5-pro' pour une meilleure qualité
+  const model = "gemini-2.5-flash"; 
 
   const prompt = `Tu es un expert en création de prompts pour IA spécialisé dans l'analyse de textes juridiques.
 
