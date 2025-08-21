@@ -185,22 +185,7 @@ function CustomToneModal({ isOpen, onClose, onSave }: CustomToneModalProps) {
             </div>
           )}
 
-          {/* Info */}
-          <div className="bg-emerald-900/20 border border-emerald-700 rounded-lg p-3">
-            <p className="text-emerald-300 text-sm">
-              <strong>Magie de l'IA :</strong> Il suffit d'un titre créatif !
-              Notre IA va générer automatiquement une description détaillée pour
-              créer le ton parfait basé sur votre idée.
-            </p>
-            <div className="mt-2 text-xs text-emerald-200">
-              <p>
-                <strong>Exemples de titres :</strong>
-              </p>
-              <p>• "Professeur patient" → Ton pédagogique et bienveillant</p>
-              <p>• "Ami geek" → Style décontracté avec références tech</p>
-              <p>• "Consultant senior" → Approche professionnelle et experte</p>
-            </div>
-          </div>
+          
         </div>
 
         {/* Actions */}
