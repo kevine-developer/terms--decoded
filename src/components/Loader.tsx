@@ -3,7 +3,7 @@ function Loader() {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <svg
-        className="animate-spin h-6 w-10 text-indigo-400"
+        className="animate-spin h-6 w-10 text-emerald-400"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

@@ -1,10 +1,13 @@
+// src/components/OutputDisplay.tsx
 import { useState, useEffect } from "react";
 import { parseMarkdown } from "../utils/parseMarkdown";
 import { markdownToPlainText } from "../utils/markdownToPlainText";
+import type { LanguageInterface } from "../types/types";
 
 interface OutputDisplayProps {
   outputText: string;
   error: string | null;
+  language: LanguageInterface;
 }
 
 interface CopyIconProps {
@@ -45,7 +48,7 @@ const CheckIcon = ({ className }: CopyIconProps) => (
   </svg>
 );
 
-const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
+const OutputDisplay = ({ outputText, error, language }: OutputDisplayProps) => {
   const [copied, setCopied] = useState<"markdown" | "plain" | null>(null);
 
   useEffect(() => {
@@ -73,11 +76,41 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
   const hasContent = outputText || error;
   const renderedHTML = parseMarkdown(outputText);
 
+  // Textes selon la langue
+  const texts = {
+    fr: {
+      title: "Traduction en clair",
+      copy: "Copier",
+      markdown: "Markdown",
+      plainText: "Texte brut",
+      markdownCopied: "Markdown copié !",
+      plainCopied: "Texte copié !",
+      errorTitle: "Erreur de traduction :",
+      resultWillAppear: "Le résultat de la traduction apparaîtra ici.",
+      readyToTransform: "Prêt à transformer du charabia en quelque chose d'utile (ou de drôle) ?",
+      markdownSupport: "✨ Support Markdown inclus !",
+    },
+    en: {
+      title: "Plain translation",
+      copy: "Copy",
+      markdown: "Markdown",
+      plainText: "Plain text",
+      markdownCopied: "Markdown copied!",
+      plainCopied: "Text copied!",
+      errorTitle: "Translation error:",
+      resultWillAppear: "The translation result will appear here.",
+      readyToTransform: "Ready to transform gibberish into something useful (or funny)?",
+      markdownSupport: "✨ Markdown support included!",
+    }
+  };
+
+  const t = texts[language.code];
+
   return (
     <div className="relative w-full flex flex-col">
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
         <h3 className="text-lg font-medium text-gray-300">
-          Traduction en clair
+          {t.title}
         </h3>
         {outputText && !error && (
           <div className="flex gap-2 items-center">
@@ -87,19 +120,19 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
                 {copied === "markdown" && (
                   <>
                     <CheckIcon className="w-4 h-4" />
-                    Markdown copié !
+                    {t.markdownCopied}
                   </>
                 )}
                 {copied === "plain" && (
                   <>
                     <CheckIcon className="w-4 h-4" />
-                    Texte copié !
+                    {t.plainCopied}
                   </>
                 )}
                 {!copied && (
                   <>
                     <CopyIcon className="w-4 h-4" />
-                    Copier
+                    {t.copy}
                     <svg
                       className="w-3 h-3 ml-1"
                       fill="currentColor"
@@ -122,14 +155,14 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
                     onClick={handleCopyMarkdown}
                     className=" w-full  px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white transition-colors duration-150 flex items-center rounded-t-lg"
                   >
-                    Markdown
+                    {t.markdown}
                   </button>
 
                   <button
                     onClick={handleCopyPlain}
                     className="w-full  px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white transition-colors duration-150 flex items-center gap-2 rounded-b-lg"
                   >
-                    Text brut
+                    {t.plainText}
                   </button>
                 </div>
               )}
@@ -141,7 +174,7 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
       <div className="p-6 overflow-y-auto flex-grow">
         {error && (
           <div className="text-red-400 bg-red-900/50 p-4 rounded-lg border border-red-700/50">
-            <p className="font-bold mb-2">Erreur de traduction :</p>
+            <p className="font-bold mb-2">{t.errorTitle}</p>
             <p className="text-red-300">{error}</p>
           </div>
         )}
@@ -170,14 +203,13 @@ const OutputDisplay = ({ outputText, error }: OutputDisplayProps) => {
               />
             </svg>
             <p className="font-medium text-gray-400 mb-2">
-              Le résultat de la traduction apparaîtra ici.
+              {t.resultWillAppear}
             </p>
             <p className="text-sm text-gray-500">
-              Prêt à transformer du charabia en quelque chose d'utile (ou de
-              drôle) ?
+              {t.readyToTransform}
             </p>
             <p className="text-xs text-emerald-400 mt-2">
-              ✨ Support Markdown inclus !
+              {t.markdownSupport}
             </p>
           </div>
         )}

@@ -3,7 +3,7 @@ import { useCallback, useState, useEffect, useRef } from "react";
 
 import TextInput from "./components/TextInput";
 import ToneSelector from "./components/ToneSelector";
-
+import LanguageSelector from "./components/LanguageSelector";
 import ActionButton from "./components/ActionButton";
 import Loader from "./components/Loader";
 import OutputDisplay from "./components/OutputDisplay";
@@ -15,13 +15,25 @@ import { LOADING_MESSAGES } from "./constants/loadingMessage";
 import type { AppState } from "./types/appstate.interface";
 import Cta from "./components/Cta";
 import { ToneValues } from "./constants/ToneValues";
-import type { ToneInterface } from "./types/types";
+import { LanguageValues } from "./constants/LanguageValues";
+import type {
+  ToneInterface,
+  LanguageInterface,
+  CustomToneInterface,
+} from "./types/types";
+import {
+  loadCustomTones,
+  addCustomTone,
+  removeCustomTone,
+} from "./utils/localStorageService";
 
 function App() {
   // State consolidé pour une meilleure gestion
   const [state, setState] = useState<AppState>({
     inputText: "",
-    selectedTone: ToneValues[1], // Premier élément du tableau au lieu du tableau entier
+    selectedTone: ToneValues[1], // Sarcastique par défaut
+    selectedLanguage: LanguageValues[0], // Français par défaut
+    customTones: [],
     isLoading: false,
     error: null,
     outputText: "",
@@ -32,6 +44,12 @@ function App() {
   // Refs pour les animations et focus
   const outputRef = useRef<HTMLDivElement>(null);
   const loadingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Charger les tons personnalisés au démarrage
+  useEffect(() => {
+    const customTones = loadCustomTones();
+    setState((prev) => ({ ...prev, customTones }));
+  }, []);
 
   // Cycling loading messages pendant le chargement
   useEffect(() => {
@@ -88,67 +106,70 @@ function App() {
         // Utilise la version avec retry intégré pour plus de robustesse
         const result = await reformulateTextWithRetry(
           state.inputText,
-          state.selectedTone
+          state.selectedTone,
+          state.selectedLanguage
         );
 
         setState((prev) => ({
           ...prev,
           outputText: result,
           isLoading: false,
-          hasOutput: true,
           error: null,
         }));
       } catch (error) {
         handleError(error, retryAttempt);
       }
     },
-    [state.inputText, state.selectedTone] // Suppression de handleError des dépendances
+    [state.inputText, state.selectedTone, state.selectedLanguage]
   );
 
   // Gestion d'erreur intelligente avec retry automatique
-  const handleError = useCallback((error: unknown, attempt: number = 0) => {
-    let errorMessage = ERROR_MESSAGES.genericError;
-    let shouldRetry = false;
+  const handleError = useCallback(
+    (error: unknown, attempt: number = 0) => {
+      let errorMessage = ERROR_MESSAGES.genericError;
+      let shouldRetry = false;
 
-    if (error instanceof Error) {
-      const msg = error.message.toLowerCase();
+      if (error instanceof Error) {
+        const msg = error.message.toLowerCase();
 
-      if (msg.includes("quota") || msg.includes("rate")) {
-        errorMessage = ERROR_MESSAGES.quotaError;
-      } else if (msg.includes("network") || msg.includes("fetch")) {
-        errorMessage = ERROR_MESSAGES.networkError;
-        shouldRetry = attempt < 2; // Auto-retry pour erreurs réseau
-      } else if (msg.includes("vide") || msg.includes("empty")) {
-        errorMessage = ERROR_MESSAGES.emptyInput;
-      } else if (attempt >= 3) {
-        errorMessage = ERROR_MESSAGES.retryError;
+        if (msg.includes("quota") || msg.includes("rate")) {
+          errorMessage = ERROR_MESSAGES.quotaError;
+        } else if (msg.includes("network") || msg.includes("fetch")) {
+          errorMessage = ERROR_MESSAGES.networkError;
+          shouldRetry = attempt < 2; // Auto-retry pour erreurs réseau
+        } else if (msg.includes("vide") || msg.includes("empty")) {
+          errorMessage = ERROR_MESSAGES.emptyInput;
+        } else if (attempt >= 3) {
+          errorMessage = ERROR_MESSAGES.retryError;
+        }
       }
-    }
 
-    setState((prev) => ({
-      ...prev,
-      error: errorMessage,
-      isLoading: false,
-      retryCount: attempt,
-    }));
+      setState((prev) => ({
+        ...prev,
+        error: errorMessage,
+        isLoading: false,
+        retryCount: attempt,
+      }));
 
-    // Auto-retry silencieux pour les erreurs réseau
-    if (shouldRetry) {
-      setTimeout(() => {
-        handleReformulateInternal(attempt + 1);
-      }, 1500 + attempt * 1000); // Délai croissant
-    }
-  }, [handleReformulateInternal]);
+      // Auto-retry silencieux pour les erreurs réseau
+      if (shouldRetry) {
+        setTimeout(() => {
+          handleReformulateInternal(attempt + 1);
+        }, 1500 + attempt * 1000); // Délai croissant
+      }
+    },
+    [handleReformulateInternal]
+  );
 
   // Fonction publique de reformulation
   const handleReformulate = useCallback(() => {
     handleReformulateInternal(0);
   }, [handleReformulateInternal]);
 
-  // Gestion des raccourcis clavier (DevEnGalère approved!)
+  // Gestion des raccourcis clavier
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      // Ctrl+Enter pour reformuler (comme dans les IDE)
+      // Ctrl+Enter pour reformuler
       if (e.ctrlKey && e.key === "Enter") {
         e.preventDefault();
         if (!state.isLoading && state.inputText.trim()) {
@@ -171,8 +192,30 @@ function App() {
     setState((prev) => ({ ...prev, inputText: value, error: null }));
   }, []);
 
-  const updateSelectedTone = useCallback((tone: ToneInterface) => {
-    setState((prev) => ({ ...prev, selectedTone: tone }));
+  const updateSelectedTone = useCallback(
+    (tone: ToneInterface | CustomToneInterface) => {
+      setState((prev) => ({ ...prev, selectedTone: tone }));
+    },
+    []
+  );
+
+  const updateSelectedLanguage = useCallback((language: LanguageInterface) => {
+    setState((prev) => ({ ...prev, selectedLanguage: language }));
+  }, []);
+
+  // Gestion des tons personnalisés
+  const handleCustomToneAdd = useCallback((customTone: CustomToneInterface) => {
+    setState((prev) => ({
+      ...prev,
+      customTones: addCustomTone(prev.customTones, customTone),
+    }));
+  }, []);
+
+  const handleCustomToneDelete = useCallback((toneId: string) => {
+    setState((prev) => ({
+      ...prev,
+      customTones: removeCustomTone(prev.customTones, toneId),
+    }));
   }, []);
 
   // Clear output et reset
@@ -182,7 +225,6 @@ function App() {
       inputText: "",
       outputText: "",
       error: null,
-      hasOutput: false,
     }));
   }, []);
 
@@ -190,9 +232,17 @@ function App() {
     <div className="flex flex-col">
       <Header />
 
-      <main className="flex-grow container mx-auto px-4 py-6">
+      <main className="flex-grow container mx-auto px-4 mb-2">
         {/* CTA en haut */}
+
+        <LanguageSelector
+          selectedLanguage={state.selectedLanguage}
+          onLanguageChange={updateSelectedLanguage}
+          disabled={state.isLoading}
+          className="m-2 flex justify-center"
+        />
         <Cta link="https://kevine-dev.link/" title="Découvrir mon profil" />
+        {/* Sélecteur de langue */}
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Colonne gauche - Input */}
@@ -205,6 +255,9 @@ function App() {
             <ToneSelector
               selectedTone={state.selectedTone}
               onToneChange={updateSelectedTone}
+              customTones={state.customTones}
+              onCustomToneAdd={handleCustomToneAdd}
+              onCustomToneDelete={handleCustomToneDelete}
               className="mt-4"
               disabled={state.isLoading}
             />
@@ -219,16 +272,22 @@ function App() {
                     <Loader />
                     {state.loadingMessage}
                   </span>
-                ) : (
+                ) : state.selectedLanguage.code === "fr" ? (
                   "Déchiffrer ce charabia"
+                ) : (
+                  "Decode this gibberish"
                 )}
               </ActionButton>
               <div>
-                {state.inputText  && (
+                {state.inputText && (
                   <ActionButton
                     onClick={handleClearAll}
                     disabled={state.isLoading}
-                    aria-label="Effacer tout le texte"
+                    aria-label={
+                      state.selectedLanguage.code === "fr"
+                        ? "Effacer tout le texte"
+                        : "Clear all text"
+                    }
                   >
                     <span>🗑️</span>
                   </ActionButton>
@@ -242,7 +301,9 @@ function App() {
                 onClick={() => handleReformulateInternal(state.retryCount)}
                 className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
               >
-                Réessayer ({3 - state.retryCount} tentatives restantes)
+                {state.selectedLanguage.code === "fr"
+                  ? `Réessayer (${3 - state.retryCount} tentatives restantes)`
+                  : `Retry (${3 - state.retryCount} attempts remaining)`}
               </button>
             )}
           </div>
@@ -257,7 +318,9 @@ function App() {
                   </p>
                   {state.retryCount > 0 && (
                     <p className="text-xs text-yellow-400">
-                      Tentative automatique #{state.retryCount + 1}/3
+                      {state.selectedLanguage.code === "fr"
+                        ? `Tentative automatique #${state.retryCount + 1}/3`
+                        : `Automatic attempt #${state.retryCount + 1}/3`}
                     </p>
                   )}
                 </div>
@@ -265,6 +328,7 @@ function App() {
                 <OutputDisplay
                   outputText={state.outputText}
                   error={state.error}
+                  language={state.selectedLanguage}
                 />
               )}
             </div>

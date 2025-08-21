@@ -75,7 +75,7 @@ function TextInput({ value, onChange, disabled = false }: TextInputProps) {
           <textarea
             id="legal-text"
             name="legal-text"
-            rows={12}
+            rows={8}
             disabled={disabled}
             className={`
               block w-full bg-gray-800 border border-gray-700 rounded-lg p-4 
