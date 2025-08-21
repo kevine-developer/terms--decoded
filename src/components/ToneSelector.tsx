@@ -165,7 +165,7 @@ function ToneSelector({
                   title="Meilleur choix"
                 >
                   <p className="text-emerald-600 flex justify-between items-center gap-1">
-                    <span className="text-xs">Meilleur choix</span>
+                    <span className="text-xs">Populaire</span>
                     <span className="text-sm">★</span>
                   </p>
                 </div>
