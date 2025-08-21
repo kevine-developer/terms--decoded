@@ -28,7 +28,7 @@ function FileUpload({
     if (!isFileSupported(file)) {
       setUploadError(
         `Format non supporté: ${file.name.split('.').pop()}. ` +
-        'Formats acceptés: PDF, DOC, DOCX, TXT.'
+        'Formats acceptés: PDF, DOC, DOCX, TXT,MD.'
       );
       return;
     }
@@ -104,7 +104,7 @@ function FileUpload({
       <div
         className={`
           relative border-2 border-dashed rounded-lg p-4 text-center cursor-pointer
-          transition-all duration-200 min-h-[300px] ease-in-out flex flex-col justify-center
+          transition-all duration-200 min-h-[200px] ease-in-out flex flex-col justify-center
           ${dragActive 
             ? 'border-emerald-400 bg-emerald-50/5 scale-[1.02]' 
             : 'border-gray-600 hover:border-gray-500'
