@@ -9,7 +9,7 @@ Nous cliquons tous sur "J'accepte" sans jamais lire les kilomètres de jargon ju
 
 C'est un projet de [DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine) pour mettre en lumière l'absurdité de certaines clauses et redonner un peu de pouvoir aux utilisateurs.
 
-## ✨ Fonctionnalités
+##   Fonctionnalités
 
 - **Collage de Texte Facile** : Une zone de texte simple pour y déposer n'importe quel extrait de CGU, politique de confidentialité ou autre document rébarbatif.
 - **Traduction Multi-Tons** : Choisissez comment vous voulez que le texte soit "traduit" :

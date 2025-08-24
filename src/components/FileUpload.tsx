@@ -166,7 +166,7 @@ function FileUpload({
       {/* Messages d'erreur */}
       {uploadError && (
         <div className="mt-2 p-2 bg-red-900/20 border border-red-700 rounded text-red-300 text-sm">
-          <span className="font-medium">❌ Erreur:</span> {uploadError}
+          <span className="font-medium"> Erreur:</span> {uploadError}
         </div>
       )}
     </div>
