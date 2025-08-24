@@ -87,8 +87,9 @@ const OutputDisplay = ({ outputText, error, language }: OutputDisplayProps) => {
       plainCopied: "Texte copié !",
       errorTitle: "Erreur de traduction :",
       resultWillAppear: "Le résultat de la traduction apparaîtra ici.",
-      readyToTransform: "Prêt à transformer du charabia en quelque chose d'utile (ou de drôle) ?",
-      markdownSupport: "✨ Support Markdown inclus !",
+      readyToTransform:
+        "Prêt à transformer du charabia en quelque chose d'utile (ou de drôle) ?",
+      markdownSupport: "  Support Markdown inclus !",
     },
     en: {
       title: "Plain translation",
@@ -99,9 +100,10 @@ const OutputDisplay = ({ outputText, error, language }: OutputDisplayProps) => {
       plainCopied: "Text copied!",
       errorTitle: "Translation error:",
       resultWillAppear: "The translation result will appear here.",
-      readyToTransform: "Ready to transform gibberish into something useful (or funny)?",
-      markdownSupport: "✨ Markdown support included!",
-    }
+      readyToTransform:
+        "Ready to transform gibberish into something useful (or funny)?",
+      markdownSupport: "  Markdown support included!",
+    },
   };
 
   const t = texts[language.code];
@@ -109,9 +111,7 @@ const OutputDisplay = ({ outputText, error, language }: OutputDisplayProps) => {
   return (
     <div className="relative w-full flex flex-col">
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
-        <h3 className="text-lg font-medium text-gray-300">
-          {t.title}
-        </h3>
+        <h3 className="text-lg font-medium text-gray-300">{t.title}</h3>
         {outputText && !error && (
           <div className="flex gap-2 items-center">
             {/* Dropdown pour les options de copie */}
@@ -205,12 +205,8 @@ const OutputDisplay = ({ outputText, error, language }: OutputDisplayProps) => {
             <p className="font-medium text-gray-400 mb-2">
               {t.resultWillAppear}
             </p>
-            <p className="text-sm text-gray-500">
-              {t.readyToTransform}
-            </p>
-            <p className="text-xs text-emerald-400 mt-2">
-              {t.markdownSupport}
-            </p>
+            <p className="text-sm text-gray-500">{t.readyToTransform}</p>
+            <p className="text-xs text-emerald-400 mt-2">{t.markdownSupport}</p>
           </div>
         )}
       </div>

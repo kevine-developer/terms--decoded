@@ -118,7 +118,7 @@ function CustomToneModal({ isOpen, onClose, onSave }: CustomToneModalProps) {
           </h2>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-white transition-colors p-1"
+            className="text-gray-400 hover:text-white transition-colors p-1 cursor-pointer"
             aria-label="Fermer"
           >
             <svg
@@ -193,7 +193,7 @@ function CustomToneModal({ isOpen, onClose, onSave }: CustomToneModalProps) {
           <button
             onClick={handleClose}
             disabled={isGenerating}
-            className="flex-1 py-2 px-4 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-gray-300 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500"
+            className="flex-1 py-2 px-4 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-gray-300 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
           >
             Annuler
           </button>
