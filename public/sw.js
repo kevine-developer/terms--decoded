@@ -3,7 +3,7 @@ const CACHE_NAME = 'terms-decoder-cache-v1';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
-  '/',
+  '/manifest.json',
   '/icons/icon-192x192.svg',
   '/icons/icon-512x512.svg'
 ];
