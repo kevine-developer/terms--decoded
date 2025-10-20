@@ -5,13 +5,17 @@ import { GoogleGenAI } from "@google/genai";
  * Génère automatiquement une description détaillée pour un ton personnalisé
  * basée sur le titre fourni par l'utilisateur
  */
-export const generateToneDescription = async (toneTitle: string): Promise<string> => {
+export const generateToneDescription = async (
+  toneTitle: string
+): Promise<string> => {
   if (!process.env.API_KEY) {
-    throw new Error("La clé API n'est pas configurée pour le générateur de tons.");
+    throw new Error(
+      "La clé API n'est pas configurée pour le générateur de tons."
+    );
   }
-  
+
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
-  const model = "gemini-2.5-flash"; 
+  const model = "gemini-2.5-flash";
 
   const prompt = `Tu es un expert en création de prompts pour IA spécialisé dans l'analyse de textes juridiques.
 
@@ -63,7 +67,7 @@ IMPORTANT : Réponds UNIQUEMENT avec le prompt système, sans introduction ni ex
     return generatedDescription;
   } catch (error) {
     console.error("Erreur lors de la génération de la description:", error);
-    
+
     // Fallback avec un template générique basé sur le titre
     return generateFallbackDescription(toneTitle);
   }
@@ -74,9 +78,12 @@ IMPORTANT : Réponds UNIQUEMENT avec le prompt système, sans introduction ni ex
  */
 const generateFallbackDescription = (toneTitle: string): string => {
   const normalizedTitle = toneTitle.toLowerCase();
-  
+
   // Templates basés sur des mots-clés courants
-  if (normalizedTitle.includes('professionnel') || normalizedTitle.includes('expert')) {
+  if (
+    normalizedTitle.includes("professionnel") ||
+    normalizedTitle.includes("expert")
+  ) {
     return `**MISSION** : Tu es un expert professionnel spécialisé dans l'analyse juridique avec un style ${toneTitle}.
 
 **CONTEXTE** : Tu analyses des textes juridiques complexes pour les rendre accessibles tout en maintenant une approche professionnelle et rigoureuse.
@@ -95,8 +102,12 @@ const generateFallbackDescription = (toneTitle: string): string => {
 
 **FORMAT** : Structure claire avec identification du document puis analyse détaillée.`;
   }
-  
-  if (normalizedTitle.includes('ami') || normalizedTitle.includes('décontracté') || normalizedTitle.includes('cool')) {
+
+  if (
+    normalizedTitle.includes("ami") ||
+    normalizedTitle.includes("décontracté") ||
+    normalizedTitle.includes("cool")
+  ) {
     return `**MISSION** : Tu es comme un ${toneTitle} qui aide à comprendre le jargon juridique de façon détendue et sympathique.
 
 **CONTEXTE** : Tu traduis les textes juridiques compliqués en langage de tous les jours, comme le ferait un ami qui s'y connaît.
@@ -115,8 +126,12 @@ const generateFallbackDescription = (toneTitle: string): string => {
 
 **FORMAT** : Conversation naturelle avec explications claires.`;
   }
-  
-  if (normalizedTitle.includes('humour') || normalizedTitle.includes('drôle') || normalizedTitle.includes('fun')) {
+
+  if (
+    normalizedTitle.includes("humour") ||
+    normalizedTitle.includes("drôle") ||
+    normalizedTitle.includes("fun")
+  ) {
     return `**MISSION** : Tu es un expert en textes juridiques avec un style ${toneTitle} qui rend l'analyse amusante et mémorable.
 
 **CONTEXTE** : Tu utilises l'humour et des comparaisons amusantes pour expliquer des concepts juridiques souvent ennuyeux.
@@ -135,7 +150,7 @@ const generateFallbackDescription = (toneTitle: string): string => {
 
 **FORMAT** : Analyse structurée avec des éléments amusants.`;
   }
-  
+
   // Template générique par défaut
   return `**MISSION** : Tu es un spécialiste de l'analyse juridique avec une approche ${toneTitle}.
 
@@ -154,6 +169,6 @@ const generateFallbackDescription = (toneTitle: string): string => {
 **STYLE** : ${toneTitle} adapté au contexte juridique.
 
 **FORMAT** : 
-📋 **Type de document** : [identification]
+ **Type de document** : [identification]
 [Analyse avec style ${toneTitle}]`;
 };
