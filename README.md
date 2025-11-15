@@ -85,7 +85,7 @@ Cette application est un outil satirique et éducatif. **Les textes générés n
 
 Nous prévoyons d'améliorer cette application avec les fonctionnalités suivantes :
 
-- **Support des fichiers** : La possibilité de télécharger des documents **PDF** et des **images** pour en extraire le texte et le reformuler.
+- **Support des fichiers** : La possibilité de télécharger des documents **PDF**.
 - **Historique des reformulations** : Sauvegarder vos textes reformulés pour les réutiliser plus tard.
 - **Personnalisation avancée** : Des options pour définir un ton personnalisé au-delà des choix prédéfinis.
 - **Interface utilisateur améliorée** : Une refonte du design pour une meilleure expérience utilisateur.
@@ -95,6 +95,7 @@ Nous prévoyons d'améliorer cette application avec les fonctionnalités suivant
 ### Explication
 
 L'ajout de ces fonctionnalités montre que le projet est vivant et en cours d'amélioration. La section "Fonctionnalités à venir" est une excellente façon de susciter l'intérêt et de montrer la direction que prend le projet.
+
 ## Auteur
 
 Fait par **[DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine)**.
