@@ -1,7 +1,6 @@
 // fileReaderService.ts
 import * as mammoth from 'mammoth';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
-// ⚠️ récupère l’URL asset du worker (laisse le bundler l’émettre correctement)
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 GlobalWorkerOptions.workerSrc = workerSrc;
