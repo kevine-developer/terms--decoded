@@ -171,7 +171,7 @@ const OutputDisplay = ({ outputText, error, language }: OutputDisplayProps) => {
         )}
       </div>
 
-      <div className="p-6 overflow-y-auto flex-grow">
+      <div className="p-6 overflow-y-auto grow">
         {error && (
           <div className="text-red-400 bg-red-900/50 p-4 rounded-lg border border-red-700/50">
             <p className="font-bold mb-2">{t.errorTitle}</p>

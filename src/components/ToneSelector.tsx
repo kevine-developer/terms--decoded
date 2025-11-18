@@ -127,7 +127,7 @@ function ToneSelector({
               ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg"
               : "bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:hover:bg-gray-700"
           }
-          ${isCustomTone ? "border-1 border-emerald-500/30" : ""}
+          ${isCustomTone ? "border border-emerald-500/30" : ""}
         `}
               >
                 <span className="flex-1 truncate">{displayName}</span>
@@ -160,7 +160,7 @@ function ToneSelector({
               {/* Badge "Meilleur choix" */}
               {isPreferred && (
                 <div
-                  className="absolute -top-2 -right-0 rounded-full shadows-lg bg-white px-1.5"
+                  className="absolute -top-2 right-0 rounded-full shadows-lg bg-white px-1.5"
                   aria-hidden="true"
                   title="Meilleur choix"
                 >
