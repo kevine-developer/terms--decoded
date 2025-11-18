@@ -117,18 +117,21 @@ function ToneSelector({
                 onClick={() => handleToneChange(tone)}
                 onKeyDown={(e) => handleKeyDown(e, tone)}
                 className={`
-          w-full text-xs sm:text-sm lg:text-base
-          cursor-pointer flex items-center justify-center 
-          text-center py-2 px-2 rounded-lg font-medium 
-          transition-all duration-200 relative
-          disabled:opacity-50 disabled:cursor-not-allowed
-          ${
-            selected
-              ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg"
-              : "bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:hover:bg-gray-700"
-          }
-          ${isCustomTone ? "border border-emerald-500/30" : ""}
-        `}
+                  w-full text-base font-semibold 
+                  cursor-pointer flex items-center justify-center 
+                  text-center py-3 px-3 rounded-xl 
+                  transition-all duration-300 transform 
+                  disabled:opacity-40 disabled:cursor-not-allowed
+                  
+                  ${
+                    selected
+                      ? // État Sélectionné : Bordure accentuée, fond légèrement plus clair
+                        "bg-emerald-600 text-white shadow-xl shadow-emerald-900/40 ring-2 ring-emerald-400/70"
+                      : // État Normal : Fond sombre, bordure subtile
+                        "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700/70 hover:border-emerald-500/30 group-hover:-translate-y-0.5" // Ajout d'un petit effet de survol
+                  }
+                  ${isCustomTone ? "border-dashed border-emerald-500/40" : ""}
+                `}
               >
                 <span className="truncate">{displayName}</span>
               </button>
@@ -160,7 +163,7 @@ function ToneSelector({
               {/* Badge "Populaire" raffiné */}
               {isPreferred && (
                 <div
-                  className="absolute -top-2 right-0 rounded-full shadows-lg bg-white px-1.5"
+                  className="absolute -top-2 left-1/2 transform -translate-x-1/2 px-2 py-0.5 bg-emerald-500 rounded-full shadow-lg shadow-emerald-900/50"
                   aria-hidden="true"
                   title="Meilleur choix"
                 >
@@ -179,7 +182,9 @@ function ToneSelector({
         <div className="mt-4 p-3 bg-gray-800/50 border border-emerald-500/30 rounded-xl">
           <p className="text-sm text-gray-400 flex items-center gap-2">
             <span className="text-emerald-400">i</span>
-            Les tons **personnalisés** sont générés par IA et sauvegardés localement. Passez la souris pour l'option de suppression (<span className="text-red-400 font-bold">X</span>).
+            Les tons **personnalisés** sont générés par IA et sauvegardés
+            localement. Passez la souris pour l'option de suppression (
+            <span className="text-red-400 font-bold">X</span>).
           </p>
         </div>
       )}
