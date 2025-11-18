@@ -232,7 +232,7 @@ function App() {
     <div className="flex flex-col">
       <Header />
 
-      <main className="flex-grow container mx-auto px-4 mb-2">
+      <main className="grow container mx-auto px-4 mb-2">
         {/* CTA en haut */}
 
         <LanguageSelector
@@ -309,7 +309,7 @@ function App() {
           </div>
 
           <div className="lg:w-1/2 flex flex-col text-white" ref={outputRef}>
-            <div className="bg-gray-800 border border-gray-700 rounded-lg p-1 flex-grow min-h-[300px] lg:min-h-0 relative overflow-hidden">
+            <div className="bg-gray-800 border border-gray-700 rounded-lg p-1 grow min-h-[300px] lg:min-h-0 relative overflow-hidden">
               {state.isLoading ? (
                 <div className="flex flex-col items-center justify-center h-full p-8 space-y-4">
                   <Loader />
