@@ -2,7 +2,7 @@ function Footer() {
   return (
     <footer className="text-center py-6 border-t border-gray-700">
       <p className="text-gray-500 text-sm">
-        Fait avec sarcasme et beaucoup de café par{" "}
+        Fait avec sarcasme et beaucoup de café par
         <a
           href="https://kevine-dev.link/"
           target="_blank"

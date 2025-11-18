@@ -20,7 +20,7 @@ function FileUpload({
   const handleFileSelect = async (file: File) => {
     // Taille max 10MB
     if (file.size > 10 * 1024 * 1024) {
-      setUploadError(`❌ Le fichier "${file.name}" dépasse la taille maximale de 10MB.`);
+      setUploadError(`Le fichier "${file.name}" dépasse la taille maximale de 10MB.`);
       return;
     }
 
@@ -137,9 +137,6 @@ function FileUpload({
             </>
           ) : (
             <>
-              <div className="mx-auto w-8 h-8 text-gray-400">
-                📄
-              </div>
               <div>
                 <p className="text-sm text-gray-300">
                   <span className="font-medium text-emerald-400">Cliquez pour choisir</span>
