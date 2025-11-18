@@ -56,7 +56,7 @@ function ToneSelector({
 
       // Si le ton supprimé était sélectionné, sélectionner le premier ton par défaut
       if ("id" in selectedTone && selectedTone.id === toneId) {
-        onToneChange(ToneValues[1]); // Sarcastique par défaut
+        onToneChange(ToneValues[1]); // Sarcastique par défaut (ou un autre choix par défaut)
       }
     }
   };
@@ -75,22 +75,22 @@ function ToneSelector({
 
   return (
     <div className={className}>
-      <div className="flex justify-between items-center mb-2">
-        <label className="block text-lg font-medium text-gray-300">
-          Choisir le ton de la traduction
+      <div className="flex justify-between items-center mb-4">
+        <label className="block text-xl font-semibold text-gray-100 tracking-wide">
+           Ton de Traduction
         </label>
         <button
           onClick={() => setIsModalOpen(true)}
           disabled={disabled}
-          className="text-sm bg-emerald-600 cursor-pointer hover:bg-emerald-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-3 py-1 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="text-sm bg-gray-700/50 backdrop-blur-sm cursor-pointer hover:bg-emerald-600/70 disabled:bg-gray-800 disabled:cursor-not-allowed text-emerald-300 hover:text-white border border-gray-600 hover:border-emerald-600 px-4 py-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 shadow-md"
         >
-          Ajouter un ton
+          <span className="font-medium">+ Ajouter un ton</span>
         </button>
       </div>
 
       <div
         role="radiogroup"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         aria-label="Sélection du ton de traduction"
       >
         {allTones.map((tone) => {
@@ -103,7 +103,7 @@ function ToneSelector({
           return (
             <div
               key={isCustomTone ? tone.id : tone.toneText}
-              className="relative"
+              className="relative group"
             >
               {/* Bouton principal (sélection du ton) */}
               <button
@@ -111,7 +111,7 @@ function ToneSelector({
                 role="radio"
                 aria-checked={selected}
                 aria-label={`Ton ${displayName}${
-                  isPreferred ? " (recommandé)" : ""
+                  isPreferred ? " (populaire)" : ""
                 }`}
                 disabled={disabled}
                 onClick={() => handleToneChange(tone)}
@@ -130,14 +130,14 @@ function ToneSelector({
           ${isCustomTone ? "border border-emerald-500/30" : ""}
         `}
               >
-                <span className="flex-1 truncate">{displayName}</span>
+                <span className="truncate">{displayName}</span>
               </button>
 
               {/* Bouton de suppression positionné en absolu */}
               {isCustomTone && !disabled && (
                 <button
                   onClick={(e) => handleDeleteCustomTone(e, tone.id)}
-                  className="absolute top-1 right-1 p-1 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/20 rounded transition-colors"
+                  className="absolute top-1 right-1 p-1.5 text-red-400 hover:text-white bg-gray-900/50 hover:bg-red-600 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100"
                   aria-label={`Supprimer le ton ${tone.name}`}
                   title="Supprimer ce ton personnalisé"
                 >
@@ -157,16 +157,15 @@ function ToneSelector({
                 </button>
               )}
 
-              {/* Badge "Meilleur choix" */}
+              {/* Badge "Populaire" raffiné */}
               {isPreferred && (
                 <div
                   className="absolute -top-2 right-0 rounded-full shadows-lg bg-white px-1.5"
                   aria-hidden="true"
                   title="Meilleur choix"
                 >
-                  <p className="text-emerald-600 flex justify-between items-center gap-1">
-                    <span className="text-xs">Populaire</span>
-                    <span className="text-sm">★</span>
+                  <p className="text-xs font-bold text-white uppercase tracking-wider">
+                    <span className="mr-1">★</span>Populaire
                   </p>
                 </div>
               )}
@@ -175,12 +174,12 @@ function ToneSelector({
         })}
       </div>
 
-      {/* Tooltip/Info sur les tons personnalisés */}
+      {/* Info-bulle pour les tons personnalisés */}
       {customTones.length > 0 && (
-        <div className="mt-3 p-2 bg-emerald-900/10 border border-emerald-500/20 rounded-lg">
-          <p className="text-xs text-emerald-300">
-            Les tons personnalisés sont générés par IA et sauvegardés
-            localement. Supprimez-les avec <span className="text-sm">x</span>
+        <div className="mt-4 p-3 bg-gray-800/50 border border-emerald-500/30 rounded-xl">
+          <p className="text-sm text-gray-400 flex items-center gap-2">
+            <span className="text-emerald-400">i</span>
+            Les tons **personnalisés** sont générés par IA et sauvegardés localement. Passez la souris pour l'option de suppression (<span className="text-red-400 font-bold">X</span>).
           </p>
         </div>
       )}
