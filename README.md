@@ -9,7 +9,7 @@ Nous cliquons tous sur "J'accepte" sans jamais lire les kilomètres de jargon ju
 
 C'est un projet de [DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine) pour mettre en lumière l'absurdité de certaines clauses et redonner un peu de pouvoir aux utilisateurs.
 
-##   Fonctionnalités
+## Fonctionnalités
 
 - **Collage de Texte Facile** : Une zone de texte simple pour y déposer n'importe quel extrait de CGU, politique de confidentialité ou autre document rébarbatif.
 - **Traduction Multi-Tons** : Choisissez comment vous voulez que le texte soit "traduit" :
@@ -32,23 +32,23 @@ C'est un projet de [DevEnGalère](https://www.linkedin.com/in/yvesnarsonkevine) 
 
 ## 🚀 Comment ça marche ?
 
-1.  L'utilisateur colle le texte juridique dans le champ prévu.
-2.  Il choisit l'un des quatres tons de reformulation (Simple, Sarcastique, Développeur,Essentiel & Risques).
-3.  En cliquant sur le bouton "Déchiffrer", l'application envoie le texte à l'API Gemini de Google.
-4.  Une `systemInstruction` spécifique au ton choisi est ajoutée à la requête pour guider le modèle d'IA.
-5.  Le modèle `gemini-2.5-flash` analyse le texte et le reformule selon l'instruction.
-6.  La réponse est affichée dans le panneau de droite.
+1. L'utilisateur colle le texte juridique dans le champ prévu.
+2. Il choisit l'un des quatres tons de reformulation (Simple, Sarcastique, Développeur,Essentiel & Risques).
+3. En cliquant sur le bouton "Déchiffrer", l'application envoie le texte à l'API Gemini de Google.
+4. Une `systemInstruction` spécifique au ton choisi est ajoutée à la requête pour guider le modèle d'IA.
+5. Le modèle `gemini-2.5-flash` analyse le texte et le reformule selon l'instruction.
+6. La réponse est affichée dans le panneau de droite.
 
 ### Prérequis
 
-  - Node.js (version 18 ou supérieure recommandée)
-  - Un compte et une clé API pour l'API Google Gemini.
+- Node.js (version 18 ou supérieure recommandée)
+- Un compte et une clé API pour l'API Google Gemini.
 
 ## ⚙️ Installation et Lancement Local
 
+1. Clonez le dépôt :
 
-1.  Clonez le dépôt :
-    ```bash
+  ```bash
     git clone https://github.com/votre-utilisateur/votre-repo.git
     cd votre-repo
     ```
