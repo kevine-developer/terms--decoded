@@ -35,7 +35,7 @@ function FooterComponent() {
         aria-atomic="true"
       >
         <Users className="w-3 h-3" />
-        <p>{t("footer_community", { count: count.toLocaleString() })}</p>
+        <p>{t("footer_community", /* { count: count.toLocaleString() } */)}</p>
       </div>
 
       {/* Credits */}
@@ -66,7 +66,7 @@ function FooterComponent() {
         </a>
         <span className="text-(--color-slate) mx-1">|</span>
         <a
-          href="https://github.com/votre-repo/terms--decoded"
+          href="https://github.com/kevine-developer/terms--decoded"
           target="_blank"
           rel="noopener noreferrer"
           className="transition-colors duration-300 underline underline-offset-4 flex items-center gap-1 font-bold"
