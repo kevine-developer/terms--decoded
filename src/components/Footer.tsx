@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { memo } from "react";
 import { Code2, Users } from "lucide-react";
 import { useTranslation } from "../i18n/TranslationContext";
 
@@ -8,16 +8,16 @@ import { useTranslation } from "../i18n/TranslationContext";
  */
 function FooterComponent() {
   const { t } = useTranslation();
-  const [count, setCount] = useState(1337);
-
+/*   const [count, setCount] = useState(1337);
+ */
   // Slowly increment the counter for fun
-  useEffect(() => {
+/*   useEffect(() => {
     const interval = setInterval(() => {
       setCount((c) => c + Math.floor(Math.random() * 3) + 1);
     }, 8000);
     return () => clearInterval(interval);
   }, []);
-
+ */
   return (
     <footer className="text-center py-8 mt-auto relative" role="contentinfo">
       {/* Top separator */}
