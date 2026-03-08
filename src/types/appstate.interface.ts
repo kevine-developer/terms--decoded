@@ -1,14 +1,14 @@
 // src/types/appstate.interface.ts
-import type { ToneInterface, LanguageInterface, CustomToneInterface } from "./types";
+import type { ToneInterface, LanguageInterface } from "./types";
+import type { TranslationKey } from "../i18n/translations";
 
 export interface AppState {
   inputText: string;
-  selectedTone: ToneInterface | CustomToneInterface;
+  selectedTone: ToneInterface;
   selectedLanguage: LanguageInterface;
-  customTones: CustomToneInterface[];
   isLoading: boolean;
   error: string | null;
   outputText: string;
-  loadingMessage: string;
+  loadingMessageKey: TranslationKey;
   retryCount: number;
 }

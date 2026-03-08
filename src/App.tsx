@@ -1,77 +1,77 @@
+import { Trash2 } from "lucide-react";
+
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useState, useEffect, useRef } from "react";
+import {
+  useCallback,
+  useState,
+  useEffect,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 
 import TextInput from "./components/TextInput";
 import ToneSelector from "./components/ToneSelector";
 import LanguageSelector from "./components/LanguageSelector";
 import ActionButton from "./components/ActionButton";
 import Loader from "./components/Loader";
-import OutputDisplay from "./components/OutputDisplay";
-import { reformulateTextWithRetry } from "../services/geminiService";
-import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Cta from "./components/Cta";
+import GlitchText from "./components/GlitchText";
+
+const OutputDisplay = lazy(() => import("./components/OutputDisplay"));
+const Footer = lazy(() => import("./components/Footer"));
+const KonamiEasterEgg = lazy(() => import("./components/KonamiEasterEgg"));
+
+import { reformulateTextWithRetry } from "../services/geminiService";
 import { ERROR_MESSAGES } from "./constants/errorMessage";
 import { LOADING_MESSAGES } from "./constants/loadingMessage";
-import type { AppState } from "./types/appstate.interface";
-import Cta from "./components/Cta";
 import { ToneValues } from "./constants/ToneValues";
 import { LanguageValues } from "./constants/LanguageValues";
-import type {
-  ToneInterface,
-  LanguageInterface,
-  CustomToneInterface,
-} from "./types/types";
-import {
-  loadCustomTones,
-  addCustomTone,
-  removeCustomTone,
-} from "./utils/localStorageService";
+
+import { TranslationProvider, useTranslation } from "./i18n/TranslationContext";
+import type { AppState } from "./types/appstate.interface";
+import type { ToneInterface, LanguageInterface } from "./types/types";
+import type { TranslationKey } from "./i18n/translations";
 
 function App() {
-  // State consolidé pour une meilleure gestion
+  // State Consolidé
   const [state, setState] = useState<AppState>({
     inputText: "",
     selectedTone: ToneValues[1], // Sarcastique par défaut
     selectedLanguage: LanguageValues[0], // Français par défaut
-    customTones: [],
     isLoading: false,
     error: null,
     outputText: "",
-    loadingMessage: LOADING_MESSAGES[0],
+    loadingMessageKey: "load_1" as TranslationKey,
     retryCount: 0,
   });
 
-  // Refs pour les animations et focus
-  const outputRef = useRef<HTMLDivElement>(null);
+  // Refs
+  const outputRef = useRef<HTMLElement>(null);
   const loadingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Charger les tons personnalisés au démarrage
-  useEffect(() => {
-    const customTones = loadCustomTones();
-    setState((prev) => ({ ...prev, customTones }));
-  }, []);
-
-  // Cycling loading messages pendant le chargement
+  // Cycle des messages de chargement
   useEffect(() => {
     if (state.isLoading) {
       let messageIndex = 0;
       loadingIntervalRef.current = setInterval(() => {
         messageIndex = (messageIndex + 1) % LOADING_MESSAGES.length;
+        const newKey = `load_${messageIndex + 1}` as TranslationKey;
         setState((prev) => ({
           ...prev,
-          loadingMessage: LOADING_MESSAGES[messageIndex],
+          loadingMessageKey: newKey,
         }));
-      }, 2000);
+      }, 2500);
 
       return () => {
-        if (loadingIntervalRef.current) {
+        if (loadingIntervalRef.current)
           clearInterval(loadingIntervalRef.current);
-        }
       };
     }
   }, [state.isLoading]);
 
-  // Auto-scroll vers l'output quand il y a du nouveau contenu
+  // Scroll automatique vers l'output
   useEffect(() => {
     if (state.outputText && outputRef.current) {
       outputRef.current.scrollIntoView({
@@ -81,33 +81,27 @@ function App() {
     }
   }, [state.outputText]);
 
-  // Fonction interne de reformulation avec retry
   const handleReformulateInternal = useCallback(
     async (retryAttempt: number = 0) => {
       if (!state.inputText.trim()) {
-        setState((prev) => ({
-          ...prev,
-          error: ERROR_MESSAGES.emptyInput,
-        }));
+        setState((prev) => ({ ...prev, error: ERROR_MESSAGES.emptyInput }));
         return;
       }
 
-      // Reset state pour nouvelle tentative
       setState((prev) => ({
         ...prev,
         isLoading: true,
         error: null,
         outputText: "",
-        loadingMessage: LOADING_MESSAGES[0],
+        loadingMessageKey: "load_1" as TranslationKey,
         retryCount: retryAttempt,
       }));
 
       try {
-        // Utilise la version avec retry intégré pour plus de robustesse
         const result = await reformulateTextWithRetry(
           state.inputText,
           state.selectedTone,
-          state.selectedLanguage
+          state.selectedLanguage,
         );
 
         setState((prev) => ({
@@ -120,10 +114,9 @@ function App() {
         handleError(error, retryAttempt);
       }
     },
-    [state.inputText, state.selectedTone, state.selectedLanguage]
+    [state.inputText, state.selectedTone, state.selectedLanguage],
   );
 
-  // Gestion d'erreur intelligente avec retry automatique
   const handleError = useCallback(
     (error: unknown, attempt: number = 0) => {
       let errorMessage = ERROR_MESSAGES.genericError;
@@ -131,17 +124,14 @@ function App() {
 
       if (error instanceof Error) {
         const msg = error.message.toLowerCase();
-
-        if (msg.includes("quota") || msg.includes("rate")) {
+        if (msg.includes("quota") || msg.includes("rate"))
           errorMessage = ERROR_MESSAGES.quotaError;
-        } else if (msg.includes("network") || msg.includes("fetch")) {
+        else if (msg.includes("network") || msg.includes("fetch")) {
           errorMessage = ERROR_MESSAGES.networkError;
-          shouldRetry = attempt < 2; // Auto-retry pour erreurs réseau
-        } else if (msg.includes("vide") || msg.includes("empty")) {
+          shouldRetry = attempt < 2;
+        } else if (msg.includes("vide") || msg.includes("empty"))
           errorMessage = ERROR_MESSAGES.emptyInput;
-        } else if (attempt >= 3) {
-          errorMessage = ERROR_MESSAGES.retryError;
-        }
+        else if (attempt >= 3) errorMessage = ERROR_MESSAGES.retryError;
       }
 
       setState((prev) => ({
@@ -151,74 +141,47 @@ function App() {
         retryCount: attempt,
       }));
 
-      // Auto-retry silencieux pour les erreurs réseau
       if (shouldRetry) {
-        setTimeout(() => {
-          handleReformulateInternal(attempt + 1);
-        }, 1500 + attempt * 1000); // Délai croissant
+        setTimeout(
+          () => handleReformulateInternal(attempt + 1),
+          1500 + attempt * 1000,
+        );
       }
     },
-    [handleReformulateInternal]
+    [handleReformulateInternal],
   );
 
-  // Fonction publique de reformulation
   const handleReformulate = useCallback(() => {
     handleReformulateInternal(0);
   }, [handleReformulateInternal]);
 
-  // Gestion des raccourcis clavier
+  // Raccourcis clavier (Ctrl+Enter)
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      // Ctrl+Enter pour reformuler
       if (e.ctrlKey && e.key === "Enter") {
         e.preventDefault();
-        if (!state.isLoading && state.inputText.trim()) {
-          handleReformulate();
-        }
+        if (!state.isLoading && state.inputText.trim()) handleReformulate();
       }
-
-      // Escape pour clear l'erreur
-      if (e.key === "Escape" && state.error) {
+      if (e.key === "Escape" && state.error)
         setState((prev) => ({ ...prev, error: null }));
-      }
     };
-
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [state.isLoading, state.inputText, state.error, handleReformulate]);
 
-  // Handlers pour les updates d'état
+  // Handlers
   const updateInputText = useCallback((value: string) => {
     setState((prev) => ({ ...prev, inputText: value, error: null }));
   }, []);
 
-  const updateSelectedTone = useCallback(
-    (tone: ToneInterface | CustomToneInterface) => {
-      setState((prev) => ({ ...prev, selectedTone: tone }));
-    },
-    []
-  );
+  const updateSelectedTone = useCallback((tone: ToneInterface) => {
+    setState((prev) => ({ ...prev, selectedTone: tone }));
+  }, []);
 
   const updateSelectedLanguage = useCallback((language: LanguageInterface) => {
     setState((prev) => ({ ...prev, selectedLanguage: language }));
   }, []);
 
-  // Gestion des tons personnalisés
-  const handleCustomToneAdd = useCallback((customTone: CustomToneInterface) => {
-    setState((prev) => ({
-      ...prev,
-      customTones: addCustomTone(prev.customTones, customTone),
-    }));
-  }, []);
-
-  const handleCustomToneDelete = useCallback((toneId: string) => {
-    setState((prev) => ({
-      ...prev,
-      customTones: removeCustomTone(prev.customTones, toneId),
-    }));
-  }, []);
-
-  // Clear output et reset
   const handleClearAll = useCallback(() => {
     setState((prev) => ({
       ...prev,
@@ -229,114 +192,160 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <TranslationProvider language={state.selectedLanguage.code}>
+      <AppContent
+        state={state}
+        setState={setState}
+        handleReformulate={handleReformulate}
+        handleReformulateInternal={handleReformulateInternal}
+        updateInputText={updateInputText}
+        updateSelectedTone={updateSelectedTone}
+        updateSelectedLanguage={updateSelectedLanguage}
+        handleClearAll={handleClearAll}
+        outputRef={outputRef}
+      />
+    </TranslationProvider>
+  );
+}
+
+function AppContent({
+  state,
+  handleReformulate,
+  handleReformulateInternal,
+  updateInputText,
+  updateSelectedTone,
+  updateSelectedLanguage,
+  handleClearAll,
+  outputRef,
+}: any) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="noise-bg min-h-screen flex flex-col">
+      {/* Accessibilité : lien d'évitement */}
+      <a href="#main-content" className="skip-link">
+        Passer au contenu
+      </a>
+
+      {/* Easter Egg chargé paresseusement */}
+      <Suspense fallback={null}>
+        <KonamiEasterEgg />
+      </Suspense>
+
       <Header />
 
-      <main className="grow container mx-auto px-4 mb-2">
-        {/* CTA en haut */}
+      <main
+        id="main-content"
+        className="grow flex flex-col gap-6 md:gap-12 max-w-4xl mx-auto px-4 py-4 md:py-8 w-full"
+      >
+        {/* Top bar: Language + CTA */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <LanguageSelector
+            selectedLanguage={state.selectedLanguage}
+            onLanguageChange={updateSelectedLanguage}
+            disabled={state.isLoading}
+          />
+          <Cta link="https://kevine-dev.link/" title={t("cta_profile")} />
+        </div>
 
-        <LanguageSelector
-          selectedLanguage={state.selectedLanguage}
-          onLanguageChange={updateSelectedLanguage}
-          disabled={state.isLoading}
-          className="m-2 flex justify-center"
-        />
-        <Cta link="https://kevine-dev.link/" title="Découvrir mon profil" />
-        {/* Sélecteur de langue */}
+        {/* Section 1: Input */}
+        <section className="flex flex-col gap-8 animate-[fade-in-up_600ms_ease-out]">
+          <TextInput
+            value={state.inputText}
+            onChange={(e) => updateInputText(e.target.value)}
+            disabled={state.isLoading}
+          />
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Colonne gauche - Input */}
-          <div className="lg:w-1/2 flex flex-col gap-6">
-            <TextInput
-              value={state.inputText}
-              onChange={(e) => updateInputText(e.target.value)}
-            />
+          <ToneSelector
+            selectedTone={state.selectedTone}
+            onToneChange={updateSelectedTone}
+            disabled={state.isLoading}
+          />
 
-            <ToneSelector
-              selectedTone={state.selectedTone}
-              onToneChange={updateSelectedTone}
-              customTones={state.customTones}
-              onCustomToneAdd={handleCustomToneAdd}
-              onCustomToneDelete={handleCustomToneDelete}
-              className="mt-4"
-              disabled={state.isLoading}
-            />
-
-            <div className="flex gap-3">
+          <div className="flex flex-col items-center gap-4 mt-4">
+            <div className="flex items-center gap-3 w-full max-w-md">
               <ActionButton
                 onClick={handleReformulate}
                 disabled={state.isLoading || !state.inputText.trim()}
               >
                 {state.isLoading ? (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-3">
                     <Loader />
-                    {state.loadingMessage}
+                    <GlitchText text={t(state.loadingMessageKey)} isAnimating />
                   </span>
-                ) : state.selectedLanguage.code === "fr" ? (
-                  "Déchiffrer ce charabia"
                 ) : (
-                  "Decode this gibberish"
+                  <span>{t("btn_decode")}</span>
                 )}
               </ActionButton>
-              <div>
-                {state.inputText && (
-                  <ActionButton
-                    onClick={handleClearAll}
-                    disabled={state.isLoading}
-                    aria-label={
-                      state.selectedLanguage.code === "fr"
-                        ? "Effacer tout le texte"
-                        : "Clear all text"
-                    }
-                  >
-                    <span>🗑️</span>
-                  </ActionButton>
-                )}
-              </div>
+
+              {state.inputText && !state.isLoading && (
+                <button
+                  onClick={handleClearAll}
+                  className="p-4 rounded-md border border-(--color-slate) hover:border-(--color-coral) hover:text-(--color-coral) transition-all cursor-pointer flex items-center justify-center"
+                  style={{ background: "var(--color-graphite)" }}
+                  aria-label={t("btn_clear")}
+                >
+                  <Trash2 className="w-5 h-5" aria-hidden="true" />
+                </button>
+              )}
             </div>
 
-            {/* Retry manuel si erreur */}
             {state.error && state.retryCount < 3 && (
               <button
                 onClick={() => handleReformulateInternal(state.retryCount)}
-                className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                className="font-mono text-xs underline underline-offset-4 decoration-(--color-acid-lime)"
+                style={{ color: "var(--color-acid-lime)" }}
               >
-                {state.selectedLanguage.code === "fr"
-                  ? `Réessayer (${3 - state.retryCount} tentatives restantes)`
-                  : `Retry (${3 - state.retryCount} attempts remaining)`}
+                {t("btn_retry", { count: 3 - state.retryCount })}
               </button>
             )}
           </div>
+        </section>
 
-          <div className="lg:w-1/2 flex flex-col text-white" ref={outputRef}>
-            <div className="bg-gray-800 border border-gray-700 rounded-lg p-1 grow min-h-[300px] lg:min-h-0 relative overflow-hidden">
-              {state.isLoading ? (
-                <div className="flex flex-col items-center justify-center h-full p-8 space-y-4">
-                  <Loader />
-                  <p className="text-gray-100 text-center animate-pulse">
-                    {state.loadingMessage}
+        {/* Section 2: Output */}
+        {(state.outputText || state.error || state.isLoading) && (
+          <section
+            id="output-section"
+            ref={outputRef}
+            className="w-full bg-(--color-graphite) border border-(--color-slate) rounded-lg min-h-[300px] overflow-hidden"
+            style={{
+              boxShadow: "0 4px 30px rgba(0,0,0,0.5)",
+              animation: "fade-in-up 800ms ease-out",
+            }}
+          >
+            {state.isLoading ? (
+              <div className="flex flex-col items-center justify-center p-20 gap-6">
+                <Loader />
+                <div className="text-center">
+                  <p className="font-display font-bold text-xl uppercase tracking-widest text-(--color-acid-lime) mb-2">
+                    {t("btn_decoding")}
                   </p>
-                  {state.retryCount > 0 && (
-                    <p className="text-xs text-yellow-400">
-                      {state.selectedLanguage.code === "fr"
-                        ? `Tentative automatique #${state.retryCount + 1}/3`
-                        : `Automatic attempt #${state.retryCount + 1}/3`}
-                    </p>
-                  )}
+                  <p className="font-mono text-xs text-(--color-warm-gray)">
+                    <GlitchText text={t(state.loadingMessageKey)} isAnimating />
+                  </p>
                 </div>
-              ) : (
+              </div>
+            ) : (
+              <Suspense
+                fallback={
+                  <div className="flex flex-col items-center justify-center p-20 gap-6">
+                    <Loader />
+                  </div>
+                }
+              >
                 <OutputDisplay
                   outputText={state.outputText}
                   error={state.error}
-                  language={state.selectedLanguage}
                 />
-              )}
-            </div>
-          </div>
-        </div>
+              </Suspense>
+            )}
+          </section>
+        )}
       </main>
 
-      <Footer />
+      <Suspense fallback={<div className="h-20" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

@@ -2,13 +2,125 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>J'ai Lu Les CGU</title>
-       <link rel="manifest" href="/manifest.json">
+
+    <!-- SEO: Title & Description -->
+    <title>J'ai Lu Les CGU — Décodeur Satirique de Conditions Générales</title>
+    <meta
+      name="description"
+      content="Traduisez le charabia juridique des Conditions Générales d'Utilisation en langage compréhensible grâce à l'IA. Outil satirique et éducatif, propulsé par Gemini."
+    />
+    <meta
+      name="keywords"
+      content="CGU, conditions générales, traduction juridique, IA, Gemini, satirique, decoder, termes légaux, RGPD, vie privée"
+    />
+    <meta name="author" content="DevEnGalère" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://jai-lu-les-cgu.fr/" />
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="J'ai Lu Les CGU — Décodeur Satirique de CGU"
+    />
+    <meta
+      property="og:description"
+      content="Traduisez le charabia juridique des CGU en langage compréhensible. Choisissez votre ton : Simple, Sarcastique, Développeur ou Essentiel."
+    />
+    <meta property="og:url" content="https://jai-lu-les-cgu.fr/" />
+    <meta property="og:image" content="/icon.png" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="J'ai Lu Les CGU" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="J'ai Lu Les CGU — Décodeur Satirique de CGU"
+    />
+    <meta
+      name="twitter:description"
+      content="Traduisez le charabia juridique des CGU en langage compréhensible grâce à l'IA."
+    />
+    <meta name="twitter:image" content="/icon.png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "J'ai Lu Les CGU",
+        "description": "Un outil satirique et éducatif propulsé par l'IA Gemini qui traduit le charabia juridique des Conditions Générales d'Utilisation en langage compréhensible.",
+        "url": "https://jai-lu-les-cgu.fr/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "author": {
+          "@type": "Person",
+          "name": "DevEnGalère",
+          "url": "https://kevine-dev.link/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "inLanguage": ["fr", "en"]
+      }
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0D0D0D" />
+
+    <!-- Critical CSS Inlined -->
+    <style>
+      :root {
+        --color-void: #0d0d0d;
+        --color-graphite: #1a1a1a;
+        --color-slate: #252525;
+        --color-acid-lime: #c8ff00;
+        --color-off-white: #e8e6e3;
+        --font-display: "Space Grotesk", system-ui, sans-serif;
+        --font-mono: "IBM Plex Mono", "Fira Code", monospace;
+      }
+      body {
+        margin: 0;
+        background-color: var(--color-void);
+        color: var(--color-off-white);
+        font-family: var(--font-mono);
+      }
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+
+    <!-- Google Fonts: Space Grotesk + IBM Plex Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
   </head>
   <body>
-    <div id="root" class="bg-gray-900 min-h-screen "></div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

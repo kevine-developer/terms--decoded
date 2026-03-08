@@ -5,14 +5,7 @@ export interface ToneInterface {
 }
 
 export interface LanguageInterface {
-  code: 'fr' | 'en';
+  code: "fr" | "en";
   label: string;
   flag: string;
-}
-
-export interface CustomToneInterface {
-  id: string;
-  name: string;
-  description: string;
-  isCustom: true;
 }

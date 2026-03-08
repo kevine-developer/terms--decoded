@@ -13,12 +13,16 @@
     "@google/genai": "^1.29.1",
     "@google/generative-ai": "^0.24.1",
     "@tailwindcss/vite": "^4.1.17",
+    "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
+    "framer-motion": "^12.35.1",
+    "lucide-react": "^0.577.0",
     "mammoth": "^1.11.0",
     "pdfjs-dist": "^5.4.394",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.9.6",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
