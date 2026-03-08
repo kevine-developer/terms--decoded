@@ -1,4 +1,4 @@
-// src/components/LanguageSelector.tsx
+import { memo } from "react";
 import { LanguageValues } from "../constants/LanguageValues";
 import type { LanguageInterface } from "../types/types";
 
@@ -9,7 +9,11 @@ interface LanguageSelectorProps {
   className?: string;
 }
 
-function LanguageSelector({
+/**
+ * LanguageSelector — Standard language switcher styled for Brutalist Editorial.
+ * A11y: radiogroup role, aria-checked, keyboard navigation.
+ */
+function LanguageSelectorComponent({
   selectedLanguage,
   onLanguageChange,
   disabled = false,
@@ -21,7 +25,10 @@ function LanguageSelector({
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent, language: LanguageInterface) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent,
+    language: LanguageInterface,
+  ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleLanguageChange(language);
@@ -32,37 +39,41 @@ function LanguageSelector({
     <div className={className}>
       <div
         role="radiogroup"
-        className="flex gap-3"
-        aria-label="Sélection de la langue de réponse"
+        className="flex gap-2"
+        aria-label="Sélection de la langue"
       >
         {LanguageValues.map((language) => {
           const isSelected = selectedLanguage.code === language.code;
           return (
-            <div key={language.code} className="relative">
-              <button
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                aria-label={`Langue ${language.label}`}
-                disabled={disabled}
-                onClick={() => handleLanguageChange(language)}
-                onKeyDown={(e) => handleKeyDown(e, language)}
-                className={`
-                  flex items-center gap-2 p-1 rounded-lg font-medium 
-                  transition-all duration-200 cursor-pointer
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 
-                  focus:ring-offset-gray-900 focus:ring-emerald-500
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                  ${
-                    isSelected
-                      ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg"
-                      : "bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:hover:bg-gray-700"
-                  }
-                `}
-              >
-                <span className="text-sm">{language.label}</span>
-              </button>
-            </div>
+            <button
+              key={language.code}
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`Langue ${language.label}`}
+              disabled={disabled}
+              onClick={() => handleLanguageChange(language)}
+              onKeyDown={(e) => handleKeyDown(e, language)}
+              className={`
+                px-3 py-1.5 rounded font-mono text-xs transition-all duration-200 cursor-pointer
+                focus-visible:outline-2 focus-visible:outline-offset-2
+                disabled:opacity-50 disabled:cursor-not-allowed
+              `}
+              style={{
+                background: isSelected
+                  ? "var(--color-acid-lime)"
+                  : "var(--color-slate)",
+                color: isSelected
+                  ? "var(--color-void)"
+                  : "var(--color-off-white)",
+                border: isSelected
+                  ? "1px solid var(--color-acid-lime)"
+                  : "1px solid var(--color-slate)",
+                fontWeight: isSelected ? 600 : 400,
+              }}
+            >
+              {language.code.toUpperCase()}
+            </button>
           );
         })}
       </div>
@@ -70,4 +81,5 @@ function LanguageSelector({
   );
 }
 
+const LanguageSelector = memo(LanguageSelectorComponent);
 export default LanguageSelector;
