@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { memo } from "react";
 import { Code2, Users } from "lucide-react";
 import { useTranslation } from "../i18n/TranslationContext";
 
@@ -8,16 +8,16 @@ import { useTranslation } from "../i18n/TranslationContext";
  */
 function FooterComponent() {
   const { t } = useTranslation();
-  const [count, setCount] = useState(1337);
-
+/*   const [count, setCount] = useState(1337);
+ */
   // Slowly increment the counter for fun
-  useEffect(() => {
+/*   useEffect(() => {
     const interval = setInterval(() => {
       setCount((c) => c + Math.floor(Math.random() * 3) + 1);
     }, 8000);
     return () => clearInterval(interval);
   }, []);
-
+ */
   return (
     <footer className="text-center py-8 mt-auto relative" role="contentinfo">
       {/* Top separator */}
@@ -35,7 +35,7 @@ function FooterComponent() {
         aria-atomic="true"
       >
         <Users className="w-3 h-3" />
-        <p>{t("footer_community", { count: count.toLocaleString() })}</p>
+        <p>{t("footer_community", /* { count: count.toLocaleString() } */)}</p>
       </div>
 
       {/* Credits */}
@@ -66,7 +66,7 @@ function FooterComponent() {
         </a>
         <span className="text-(--color-slate) mx-1">|</span>
         <a
-          href="https://github.com/votre-repo/terms--decoded"
+          href="https://github.com/kevine-developer/terms--decoded"
           target="_blank"
           rel="noopener noreferrer"
           className="transition-colors duration-300 underline underline-offset-4 flex items-center gap-1 font-bold"
